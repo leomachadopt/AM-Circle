@@ -27,7 +27,7 @@ export default function Login() {
     setTimeout(() => {
       setIsLoading(false)
       if (email && password) {
-        toast.success('Login realizado com sucesso!')
+        toast.success('Login efetuado com sucesso!')
         navigate('/')
       } else {
         toast.error('Por favor, preencha todos os campos.')
@@ -48,7 +48,7 @@ export default function Login() {
             HBM Dental Mastery Hub
           </CardTitle>
           <CardDescription>
-            Entre com suas credenciais para acessar a plataforma
+            Introduza as suas credenciais para aceder à plataforma
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleLogin}>
@@ -66,9 +66,9 @@ export default function Login() {
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password">Senha</Label>
+                <Label htmlFor="password">Palavra-passe</Label>
                 <a href="#" className="text-sm text-primary hover:underline">
-                  Esqueceu a senha?
+                  Esqueceu-se da palavra-passe?
                 </a>
               </div>
               <Input
@@ -86,7 +86,7 @@ export default function Login() {
               className="w-full bg-primary text-white hover:bg-primary/90"
               disabled={isLoading}
             >
-              {isLoading ? 'Entrando...' : 'Entrar'}
+              {isLoading ? 'A entrar...' : 'Entrar'}
             </Button>
           </CardFooter>
         </form>

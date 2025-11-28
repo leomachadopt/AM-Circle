@@ -17,7 +17,7 @@ export default function AIAssistant() {
     {
       id: 1,
       role: 'ai',
-      content: `Olá, ${mockUser.name}! Sou sua assistente HBM. Como posso ajudar a otimizar sua clínica hoje?`,
+      content: `Olá, ${mockUser.name}! Sou a sua assistente HBM. Como posso ajudar a otimizar a sua clínica hoje?`,
     },
   ])
   const [input, setInput] = useState('')
@@ -25,9 +25,9 @@ export default function AIAssistant() {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
 
   const suggestions = [
-    'Gerar script de vendas para clareamento',
-    'Analisar meus KPIs deste mês',
-    'Criar plano de ação para recepção',
+    'Gerar guião de vendas para branqueamento',
+    'Analisar os meus KPIs deste mês',
+    'Criar plano de ação para a receção',
     'Resumo da última mentoria',
   ]
 
@@ -45,7 +45,7 @@ export default function AIAssistant() {
         id: Date.now() + 1,
         role: 'ai',
         content:
-          'Entendi. Aqui está uma sugestão baseada nas melhores práticas do HBM:\n\nPara aumentar a conversão de clareamento, foque nos benefícios emocionais e na rapidez do resultado. Gostaria que eu detalhasse um script específico?',
+          'Entendi. Aqui está uma sugestão baseada nas melhores práticas do HBM:\n\nPara aumentar a conversão de branqueamento, foque-se nos benefícios emocionais e na rapidez do resultado. Gostaria que eu detalhasse um guião específico?',
       }
       setMessages((prev) => [...prev, aiResponse])
       setIsTyping(false)
@@ -63,9 +63,9 @@ export default function AIAssistant() {
           <Bot className="h-6 w-6 text-primary" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-primary">IA HBM Assistente</h1>
+          <h1 className="text-2xl font-bold text-primary">Assistente IA HBM</h1>
           <p className="text-xs text-muted-foreground">
-            Sua consultora virtual 24/7
+            A sua consultora virtual 24/7
           </p>
         </div>
       </div>
@@ -152,7 +152,7 @@ export default function AIAssistant() {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Digite sua pergunta..."
+              placeholder="Escreva a sua pergunta..."
               className="flex-1"
             />
             <Button

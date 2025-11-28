@@ -15,8 +15,8 @@ export default function Support() {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-primary">Suporte HBM</h1>
-        <p className="text-muted-foreground">Estamos aqui para ajudar você.</p>
+        <h1 className="text-3xl font-bold text-primary">Apoio HBM</h1>
+        <p className="text-muted-foreground">Estamos aqui para o ajudar.</p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">
@@ -44,7 +44,7 @@ export default function Support() {
         <CardHeader>
           <CardTitle>Envie uma mensagem</CardTitle>
           <CardDescription>
-            Responderemos em até 24 horas úteis.
+            Responderemos num prazo de 24 horas úteis.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -56,7 +56,7 @@ export default function Support() {
             <div className="space-y-2">
               <Label>Mensagem</Label>
               <Textarea
-                placeholder="Descreva seu problema ou dúvida..."
+                placeholder="Descreva o seu problema ou dúvida..."
                 className="min-h-[150px]"
               />
             </div>

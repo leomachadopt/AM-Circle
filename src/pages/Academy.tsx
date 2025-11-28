@@ -1,16 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { mockLessons } from '@/lib/data'
-import { PlayCircle, CheckCircle2, Clock } from 'lucide-react'
+import { PlayCircle, Clock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
 export default function Academy() {
@@ -34,7 +28,7 @@ export default function Academy() {
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-primary">Academia HBM</h1>
         <p className="text-muted-foreground">
-          Domine os pilares do sucesso na odontologia.
+          Domine os pilares do sucesso na medicina dentária.
         </p>
       </div>
 

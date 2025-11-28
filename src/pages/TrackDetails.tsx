@@ -1,57 +1,57 @@
 import { useParams, Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeft, PlayCircle, FileText, CheckCircle } from 'lucide-react'
+import { ArrowLeft, CheckCircle } from 'lucide-react'
 
 export default function TrackDetails() {
   return (
     <div className="space-y-6">
       <Button variant="ghost" asChild className="pl-0">
         <Link to="/tracks">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Trilhas
+          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Percursos
         </Link>
       </Button>
 
       <div className="bg-primary text-primary-foreground p-8 rounded-xl">
         <h1 className="text-3xl font-bold mb-2">Aceleração de Vendas</h1>
         <p className="opacity-90 max-w-2xl">
-          Uma jornada intensiva para transformar a maneira como você apresenta
-          seus tratamentos e aumentar significativamente sua taxa de aceitação.
+          Uma jornada intensiva para transformar a forma como apresenta os seus
+          tratamentos e aumentar significativamente a sua taxa de aceitação.
         </p>
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Etapas da Trilha</h2>
+        <h2 className="text-xl font-semibold">Etapas do Percurso</h2>
 
         {[
           {
             id: 1,
             type: 'video',
-            title: 'Fundamentos da Venda Odontológica',
+            title: 'Fundamentos da Venda em Medicina Dentária',
             status: 'completed',
           },
           {
             id: 2,
             type: 'tool',
-            title: 'Script de Primeira Consulta',
+            title: 'Guião de Primeira Consulta',
             status: 'completed',
           },
           {
             id: 3,
             type: 'video',
-            title: 'Quebrando Objeções de Preço',
+            title: 'Ultrapassar Objeções de Preço',
             status: 'current',
           },
           {
             id: 4,
             type: 'task',
-            title: 'Aplicar script em 5 pacientes',
+            title: 'Aplicar guião em 5 pacientes',
             status: 'locked',
           },
           {
             id: 5,
             type: 'video',
-            title: 'Fechamento e Negociação',
+            title: 'Fecho e Negociação',
             status: 'locked',
           },
         ].map((step, index) => (

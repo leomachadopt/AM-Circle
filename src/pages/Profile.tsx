@@ -31,7 +31,7 @@ export default function Profile() {
             <CardHeader>
               <CardTitle>Dados Pessoais</CardTitle>
               <CardDescription>
-                Atualize suas informações de contato.
+                Atualize as suas informações de contacto.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -49,11 +49,11 @@ export default function Profile() {
                   <Input placeholder="(00) 00000-0000" />
                 </div>
                 <div className="space-y-2">
-                  <Label>CRO</Label>
-                  <Input placeholder="00000/UF" />
+                  <Label>OMD</Label>
+                  <Input placeholder="00000" />
                 </div>
               </div>
-              <Button>Salvar Alterações</Button>
+              <Button>Guardar Alterações</Button>
             </CardContent>
           </Card>
         </div>

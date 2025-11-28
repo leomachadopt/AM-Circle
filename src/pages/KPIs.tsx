@@ -15,17 +15,8 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from '@/components/ui/chart'
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  XAxis,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-} from 'recharts'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { TrendingUp, AlertTriangle } from 'lucide-react'
+import { Bar, BarChart, CartesianGrid, XAxis, Line, LineChart } from 'recharts'
+import { TrendingUp } from 'lucide-react'
 
 const kpiData = [
   { month: 'Jan', revenue: 45000, patients: 120 },
@@ -38,7 +29,7 @@ const kpiData = [
 
 const chartConfig = {
   revenue: {
-    label: 'Faturamento (R$)',
+    label: 'Faturação (€)',
     color: 'hsl(var(--chart-1))',
   },
   patients: {
@@ -51,7 +42,7 @@ export default function KPIs() {
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-primary">KPIs & Evolução</h1>
+        <h1 className="text-3xl font-bold text-primary">KPIs e Evolução</h1>
         <p className="text-muted-foreground">
           Acompanhe os números que realmente importam para o seu crescimento.
         </p>
@@ -61,7 +52,7 @@ export default function KPIs() {
         <div className="lg:col-span-2 space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle>Evolução de Faturamento</CardTitle>
+              <CardTitle>Evolução de Faturação</CardTitle>
               <CardDescription>Últimos 6 meses</CardDescription>
             </CardHeader>
             <CardContent>
@@ -123,13 +114,13 @@ export default function KPIs() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
-                Seu faturamento cresceu{' '}
-                <span className="font-bold text-green-600">22%</span> em Junho
-                comparado a Maio. Ótimo trabalho!
+                A sua faturação cresceu{' '}
+                <span className="font-bold text-green-600">22%</span> em junho
+                comparada com maio. Bom trabalho!
               </p>
               <p>
-                A taxa de conversão de pacientes novos está estável. Sugiro
-                revisar o script de primeira consulta para tentar aumentar esse
+                A taxa de conversão de novos pacientes está estável. Sugiro
+                rever o guião de primeira consulta para tentar aumentar esse
                 número no próximo mês.
               </p>
             </CardContent>
@@ -137,13 +128,13 @@ export default function KPIs() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Registrar Novos Dados</CardTitle>
+              <CardTitle>Registar Novos Dados</CardTitle>
               <CardDescription>Mês de Referência: Julho</CardDescription>
             </CardHeader>
             <CardContent>
               <form className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Faturamento Total (R$)</Label>
+                  <Label>Faturação Total (€)</Label>
                   <Input type="number" placeholder="0,00" />
                 </div>
                 <div className="space-y-2">
@@ -151,10 +142,10 @@ export default function KPIs() {
                   <Input type="number" placeholder="0" />
                 </div>
                 <div className="space-y-2">
-                  <Label>Ticket Médio (R$)</Label>
+                  <Label>Ticket Médio (€)</Label>
                   <Input type="number" placeholder="0,00" />
                 </div>
-                <Button className="w-full">Salvar KPIs</Button>
+                <Button className="w-full">Guardar KPIs</Button>
               </form>
             </CardContent>
           </Card>

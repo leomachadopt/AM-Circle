@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
-import { Route, ArrowRight, CheckCircle } from 'lucide-react'
+import { Route, CheckCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function CustomTracks() {
@@ -16,10 +16,10 @@ export default function CustomTracks() {
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-primary">
-          Trilhas Personalizadas
+          Percursos Personalizados
         </h1>
         <p className="text-muted-foreground">
-          Caminhos de aprendizado desenhados para o seu momento atual.
+          Caminhos de aprendizagem desenhados para o seu momento atual.
         </p>
       </div>
 
@@ -31,7 +31,7 @@ export default function CustomTracks() {
             </div>
             <CardTitle>Aceleração de Vendas</CardTitle>
             <CardDescription>
-              Foco em aumentar a taxa de conversão e ticket médio.
+              Foco em aumentar a taxa de conversão e o ticket médio.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -44,7 +44,7 @@ export default function CustomTracks() {
             </div>
             <ul className="text-sm space-y-2 text-muted-foreground">
               <li className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-500" /> Script de
+                <CheckCircle className="h-4 w-4 text-green-500" /> Guião de
                 Vendas
               </li>
               <li className="flex items-center gap-2">
@@ -53,13 +53,13 @@ export default function CustomTracks() {
               </li>
               <li className="flex items-center gap-2">
                 <div className="h-4 w-4 rounded-full border border-muted-foreground" />{' '}
-                Aula: Fechamento
+                Aula: Fecho
               </li>
             </ul>
           </CardContent>
           <CardFooter>
             <Button className="w-full" asChild>
-              <Link to="/tracks/1">Continuar Trilha</Link>
+              <Link to="/tracks/1">Continuar Percurso</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -71,7 +71,7 @@ export default function CustomTracks() {
             </div>
             <CardTitle>Organização Financeira</CardTitle>
             <CardDescription>
-              Estruture o fluxo de caixa e precificação.
+              Estruture o fluxo de caixa e a definição de preços.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -83,12 +83,12 @@ export default function CustomTracks() {
               <Progress value={0} className="h-2" />
             </div>
             <p className="text-sm text-muted-foreground">
-              Inicie esta trilha para dominar as finanças da sua clínica.
+              Inicie este percurso para dominar as finanças da sua clínica.
             </p>
           </CardContent>
           <CardFooter>
             <Button variant="outline" className="w-full">
-              Iniciar Trilha
+              Iniciar Percurso
             </Button>
           </CardFooter>
         </Card>

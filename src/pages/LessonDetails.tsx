@@ -3,8 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Separator } from '@/components/ui/separator'
-import { ArrowLeft, Download, MessageSquare, Share2 } from 'lucide-react'
+import { ArrowLeft, Download, MessageSquare } from 'lucide-react'
 import { mockLessons } from '@/lib/data'
 
 export default function LessonDetails() {
@@ -19,7 +18,7 @@ export default function LessonDetails() {
         className="pl-0 hover:pl-2 transition-all"
       >
         <Link to="/academy">
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Academia
+          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para a Academia
         </Link>
       </Button>
 
@@ -41,8 +40,8 @@ export default function LessonDetails() {
             </h1>
             <p className="text-muted-foreground">
               Nesta aula, vamos explorar os conceitos fundamentais para
-              transformar sua clínica em um negócio rentável e organizado.
-              Aprenda as estratégias que os top 1% dos dentistas utilizam.
+              transformar a sua clínica num negócio rentável e organizado.
+              Aprenda as estratégias que o top 1% dos dentistas utiliza.
             </p>
           </div>
 
@@ -65,7 +64,7 @@ export default function LessonDetails() {
                       className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       Fazer o diagnóstico inicial da clínica usando a ferramenta
-                      de SWOT.
+                      SWOT.
                     </label>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -89,7 +88,9 @@ export default function LessonDetails() {
                         PDF
                       </div>
                       <div>
-                        <p className="font-medium text-sm">Slides da Aula</p>
+                        <p className="font-medium text-sm">
+                          Diapositivos da Aula
+                        </p>
                         <p className="text-xs text-muted-foreground">2.4 MB</p>
                       </div>
                     </div>
@@ -104,7 +105,7 @@ export default function LessonDetails() {
                       </div>
                       <div>
                         <p className="font-medium text-sm">
-                          Planilha de Exercícios
+                          Folha de Cálculo de Exercícios
                         </p>
                         <p className="text-xs text-muted-foreground">1.1 MB</p>
                       </div>
@@ -120,7 +121,7 @@ export default function LessonDetails() {
               <Card>
                 <CardContent className="pt-6 text-center text-muted-foreground">
                   <MessageSquare className="h-12 w-12 mx-auto mb-2 opacity-20" />
-                  <p>Nenhum comentário ainda. Seja o primeiro a perguntar!</p>
+                  <p>Ainda sem comentários. Seja o primeiro a perguntar!</p>
                 </CardContent>
               </Card>
             </TabsContent>

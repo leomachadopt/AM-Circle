@@ -19,7 +19,7 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { format } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
+import { pt } from 'date-fns/locale'
 
 export default function Index() {
   return (
@@ -31,7 +31,7 @@ export default function Index() {
             Olá, {mockUser.name}!
           </h1>
           <p className="text-muted-foreground">
-            Bem-vindo de volta ao seu hub de excelência odontológica.
+            Bem-vindo de volta ao seu hub de excelência dentária.
           </p>
         </div>
         <Button
@@ -100,7 +100,7 @@ export default function Index() {
           <CardHeader>
             <CardTitle>Tarefas Pendentes</CardTitle>
             <CardDescription>
-              Suas prioridades para esta semana.
+              As suas prioridades para esta semana.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -108,11 +108,15 @@ export default function Index() {
               {[
                 {
                   id: 1,
-                  text: 'Assistir aula: Precificação Estratégica',
+                  text: 'Assistir à aula: Definição Estratégica de Preços',
                   link: '/academy',
                 },
                 { id: 2, text: 'Preencher KPIs mensais', link: '/kpis' },
-                { id: 3, text: 'Baixar checklist de abertura', link: '/tools' },
+                {
+                  id: 3,
+                  text: 'Descarregar lista de verificação de abertura',
+                  link: '/tools',
+                },
               ].map((task) => (
                 <div
                   key={task.id}
@@ -162,7 +166,7 @@ export default function Index() {
                     Lembrete de Mentoria
                   </p>
                   <p className="text-xs text-yellow-700">
-                    Sessão ao vivo amanhã às 19h.
+                    Sessão em direto amanhã às 19h.
                   </p>
                 </div>
               </div>
@@ -179,7 +183,7 @@ export default function Index() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-3">
             {mockEvents
-              .filter((e) => e.type === 'Live')
+              .filter((e) => e.type === 'Em Direto')
               .map((event) => (
                 <div
                   key={event.id}
@@ -192,7 +196,7 @@ export default function Index() {
                   <div className="flex items-center text-sm text-muted-foreground mb-4">
                     <Calendar className="mr-2 h-4 w-4" />
                     {format(new Date(event.date), "dd 'de' MMMM, HH:mm", {
-                      locale: ptBR,
+                      locale: pt,
                     })}
                   </div>
                   <Button variant="outline" className="mt-auto w-full">

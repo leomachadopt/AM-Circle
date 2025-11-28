@@ -14,14 +14,14 @@ import {
 export const navItems = [
   { title: 'Dashboard', url: '/', icon: LayoutDashboard },
   { title: 'Academia HBM', url: '/academy', icon: GraduationCap },
-  { title: 'Mentorias & Eventos', url: '/mentorships', icon: Calendar },
+  { title: 'Mentorias e Eventos', url: '/mentorships', icon: Calendar },
   { title: 'Ferramentas', url: '/tools', icon: Wrench },
-  { title: 'IA Assistente', url: '/ai-assistant', icon: Bot },
-  { title: 'KPIs & Evolução', url: '/kpis', icon: BarChart2 },
-  { title: 'Trilhas', url: '/tracks', icon: Route },
+  { title: 'Assistente IA', url: '/ai-assistant', icon: Bot },
+  { title: 'KPIs e Evolução', url: '/kpis', icon: BarChart2 },
+  { title: 'Percursos', url: '/tracks', icon: Route },
   { title: 'Comunidade', url: '/community', icon: Users },
   { title: 'Perfil', url: '/profile', icon: User },
-  { title: 'Suporte', url: '/support', icon: LifeBuoy },
+  { title: 'Apoio', url: '/support', icon: LifeBuoy },
 ]
 
 export const mockUser = {
@@ -34,7 +34,7 @@ export const mockUser = {
 export const mockLessons = [
   {
     id: 1,
-    title: 'Fundamentos da Gestão Odontológica',
+    title: 'Fundamentos da Gestão Dentária',
     duration: '45 min',
     completed: true,
     module: 'Gestão',
@@ -55,14 +55,14 @@ export const mockLessons = [
   },
   {
     id: 4,
-    title: 'Liderança de Equipes de Alta Performance',
+    title: 'Liderança de Equipas de Alta Performance',
     duration: '55 min',
     completed: false,
     module: 'Liderança',
   },
   {
     id: 5,
-    title: 'Precificação Estratégica',
+    title: 'Definição Estratégica de Preços',
     duration: '40 min',
     completed: false,
     module: 'Financeiro',
@@ -74,19 +74,19 @@ export const mockEvents = [
     id: 1,
     title: 'Mentoria de Vendas Avançadas',
     date: '2024-06-15T19:00:00',
-    type: 'Live',
+    type: 'Em Direto',
   },
   {
     id: 2,
     title: 'Análise de Casos Clínicos',
     date: '2024-06-22T20:00:00',
-    type: 'Live',
+    type: 'Em Direto',
   },
   {
     id: 3,
     title: 'Workshop: Gestão Financeira',
     date: '2024-05-10T19:00:00',
-    type: 'Replay',
+    type: 'Gravação',
   },
 ]
 
@@ -99,26 +99,26 @@ export const mockTools = [
   },
   {
     id: 2,
-    title: 'Script de Confirmação de Consulta',
-    category: 'Scripts',
+    title: 'Guião de Confirmação de Consulta',
+    category: 'Guiões',
     icon: 'FileText',
   },
   {
     id: 3,
-    title: 'Checklist de Abertura da Clínica',
-    category: 'Checklists',
+    title: 'Lista de Verificação de Abertura da Clínica',
+    category: 'Listas de Verificação',
     icon: 'CheckSquare',
   },
   {
     id: 4,
-    title: 'Planilha de Fluxo de Caixa',
-    category: 'Planilhas',
+    title: 'Folha de Cálculo de Fluxo de Caixa',
+    category: 'Folhas de Cálculo',
     icon: 'Table',
   },
   {
     id: 5,
-    title: 'SOP: Esterilização de Materiais',
-    category: 'SOPs',
+    title: 'PNO: Esterilização de Materiais',
+    category: 'PNOs',
     icon: 'File',
   },
 ]
@@ -129,7 +129,7 @@ export const mockPosts = [
     author: 'Dra. Ana Souza',
     avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=female',
     content:
-      'Alguém já implementou o novo script de vendas? Tive um aumento de 20% na conversão essa semana!',
+      'Alguém já implementou o novo guião de vendas? Tive um aumento de 20% na conversão esta semana!',
     likes: 15,
     comments: 4,
     time: '2h atrás',
@@ -140,7 +140,7 @@ export const mockPosts = [
     author: 'Dr. Carlos Mendes',
     avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=male&seed=2',
     content:
-      'Dúvida sobre o módulo financeiro: como vocês estão calculando a hora clínica?',
+      'Dúvida sobre o módulo financeiro: como estão a calcular a hora clínica?',
     likes: 8,
     comments: 12,
     time: '5h atrás',
@@ -151,7 +151,7 @@ export const mockPosts = [
     author: 'Dra. Mariana Costa',
     avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=female&seed=3',
     content:
-      'Encontrei esse artigo sobre tendências de marketing para 2025, vale a leitura: https://example.com/marketing-2025',
+      'Encontrei este artigo sobre tendências de marketing para 2025, vale a leitura: https://example.com/marketing-2025',
     likes: 22,
     comments: 7,
     time: '1d atrás',
@@ -162,10 +162,10 @@ export const mockPosts = [
     author: 'Dr. Roberto Lima',
     avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=male&seed=4',
     content:
-      'Compartilhando meu modelo de contrato de prestação de serviços. Espero que ajude!',
+      'A partilhar o meu modelo de contrato de prestação de serviços. Espero que ajude!',
     likes: 45,
     comments: 18,
     time: '2d atrás',
-    topic: 'Arquivos',
+    topic: 'Ficheiros',
   },
 ]

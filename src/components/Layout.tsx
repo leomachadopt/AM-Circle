@@ -34,7 +34,7 @@ export default function Layout() {
             <div className="hidden md:flex items-center gap-2 text-muted-foreground">
               <Search className="h-4 w-4" />
               <Input
-                placeholder="Buscar..."
+                placeholder="Pesquisar..."
                 className="h-8 w-64 border-none bg-transparent focus-visible:ring-0 placeholder:text-muted-foreground/70"
               />
             </div>
@@ -75,7 +75,7 @@ export default function Layout() {
                     <Link to="/profile">Perfil</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link to="/support">Suporte</Link>
+                    <Link to="/support">Apoio</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>

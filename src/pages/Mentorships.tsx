@@ -4,17 +4,10 @@ import { Calendar } from '@/components/ui/calendar'
 import { mockEvents } from '@/lib/data'
 import { useState } from 'react'
 import { format } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
+import { pt } from 'date-fns/locale'
 import { Video, Calendar as CalendarIcon, Send } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import { toast } from 'sonner'
 
 export default function Mentorships() {
@@ -28,9 +21,9 @@ export default function Mentorships() {
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-primary">Mentorias & Eventos</h1>
+        <h1 className="text-3xl font-bold text-primary">Mentorias e Eventos</h1>
         <p className="text-muted-foreground">
-          Participe ao vivo e tire suas dúvidas com especialistas.
+          Participe em direto e tire as suas dúvidas com especialistas.
         </p>
       </div>
 
@@ -42,7 +35,7 @@ export default function Mentorships() {
             </CardHeader>
             <CardContent className="space-y-4">
               {mockEvents
-                .filter((e) => e.type === 'Live')
+                .filter((e) => e.type === 'Em Direto')
                 .map((event) => (
                   <div
                     key={event.id}
@@ -57,7 +50,7 @@ export default function Mentorships() {
                         <p className="text-sm text-muted-foreground flex items-center gap-1">
                           <CalendarIcon className="h-3 w-3" />
                           {format(new Date(event.date), "dd 'de' MMMM, HH:mm", {
-                            locale: ptBR,
+                            locale: pt,
                           })}
                         </p>
                       </div>
@@ -70,12 +63,12 @@ export default function Mentorships() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Replays Recentes</CardTitle>
+              <CardTitle>Gravações Recentes</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid sm:grid-cols-2 gap-4">
                 {mockEvents
-                  .filter((e) => e.type === 'Replay')
+                  .filter((e) => e.type === 'Gravação')
                   .map((replay) => (
                     <div key={replay.id} className="group cursor-pointer">
                       <div className="aspect-video bg-muted rounded-lg overflow-hidden relative mb-2">
@@ -117,7 +110,7 @@ export default function Mentorships() {
 
           <Card className="bg-primary text-primary-foreground">
             <CardHeader>
-              <CardTitle className="text-white">Envie sua Pergunta</CardTitle>
+              <CardTitle className="text-white">Envie a sua Pergunta</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSendQuestion} className="space-y-4">
@@ -126,7 +119,7 @@ export default function Mentorships() {
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 />
                 <Textarea
-                  placeholder="Sua dúvida para a próxima mentoria..."
+                  placeholder="A sua dúvida para a próxima mentoria..."
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/60 min-h-[100px]"
                 />
                 <Button type="submit" variant="secondary" className="w-full">

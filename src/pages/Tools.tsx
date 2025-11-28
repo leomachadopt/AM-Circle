@@ -24,10 +24,10 @@ export default function Tools() {
   const categories = [
     'Todos',
     'Calculadoras',
-    'Scripts',
-    'Checklists',
-    'Planilhas',
-    'SOPs',
+    'Guiões',
+    'Listas de Verificação',
+    'Folhas de Cálculo',
+    'PNOs',
   ]
 
   const getIcon = (iconName: string) => {
@@ -96,7 +96,7 @@ export default function Tools() {
                     {tool.category}
                   </CardDescription>
                   <Button variant="outline" className="w-full group">
-                    Acessar Ferramenta{' '}
+                    Aceder à Ferramenta{' '}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </CardContent>

@@ -22,7 +22,7 @@ export default function Community() {
   const [newPostTopic, setNewPostTopic] = useState('')
   const [activeFilter, setActiveFilter] = useState('Todos')
 
-  const topics = ['Perguntas', 'Links Interessantes', 'Arquivos']
+  const topics = ['Perguntas', 'Links Interessantes', 'Ficheiros']
 
   const handleCreatePost = () => {
     if (!newPostContent.trim()) {
@@ -31,7 +31,7 @@ export default function Community() {
     }
 
     if (!newPostTopic) {
-      toast.error('Por favor, selecione um tópico para sua publicação.')
+      toast.error('Por favor, selecione um tópico para a sua publicação.')
       return
     }
 
@@ -63,7 +63,7 @@ export default function Community() {
         return 'default'
       case 'Links Interessantes':
         return 'secondary'
-      case 'Arquivos':
+      case 'Ficheiros':
         return 'outline'
       default:
         return 'secondary'
@@ -75,7 +75,7 @@ export default function Community() {
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-primary">Comunidade HBM</h1>
         <p className="text-muted-foreground">
-          Conecte-se com outros dentistas de alta performance.
+          Ligue-se a outros dentistas de alta performance.
         </p>
       </div>
 
@@ -91,7 +91,7 @@ export default function Community() {
                 </Avatar>
                 <div className="flex-1 space-y-4">
                   <Textarea
-                    placeholder="Compartilhe uma experiência, dúvida ou arquivo..."
+                    placeholder="Partilhe uma experiência, dúvida ou ficheiro..."
                     className="min-h-[100px]"
                     value={newPostContent}
                     onChange={(e) => setNewPostContent(e.target.value)}
@@ -226,7 +226,7 @@ export default function Community() {
             <CardContent className="space-y-2">
               {[
                 'Gestão de Clínica',
-                'Marketing Odontológico',
+                'Marketing Dentário',
                 'Ortodontia',
                 'Implantes',
               ].map((group) => (
