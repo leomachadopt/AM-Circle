@@ -28,8 +28,6 @@ export const mockUser = {
   name: 'Dr. Ricardo Silva',
   email: 'ricardo.silva@dental.com',
   avatar: 'https://img.usecurling.com/ppl/medium?gender=male',
-  points: 1250,
-  level: 'Especialista HBM',
   progress: 68,
 }
 

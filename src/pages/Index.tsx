@@ -46,7 +46,7 @@ export default function Index() {
       </div>
 
       {/* Progress & Stats */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="shadow-subtle hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
@@ -63,19 +63,6 @@ export default function Index() {
             />
             <p className="text-xs text-muted-foreground mt-2">
               +2% desde a semana passada
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="shadow-subtle hover:shadow-md transition-shadow">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pontos HBM</CardTitle>
-            <div className="h-4 w-4 rounded-full bg-secondary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{mockUser.points}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Nível:{' '}
-              <span className="font-medium text-primary">{mockUser.level}</span>
             </p>
           </CardContent>
         </Card>
