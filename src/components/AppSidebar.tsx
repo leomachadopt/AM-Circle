@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import { navItems, mockUser } from '@/lib/data'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -17,6 +18,13 @@ import { LogOut } from 'lucide-react'
 
 export function AppSidebar() {
   const location = useLocation()
+  const { setOpenMobile, isMobile } = useSidebar()
+
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setOpenMobile(false)
+    }
+  }
 
   return (
     <Sidebar collapsible="icon">
@@ -43,7 +51,11 @@ export function AppSidebar() {
                     tooltip={item.title}
                     className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground data-[active=true]:bg-gradient-to-r data-[active=true]:from-primary/10 data-[active=true]:to-transparent data-[active=true]:border-l-4 data-[active=true]:border-secondary data-[active=true]:pl-2 transition-all duration-200"
                   >
-                    <Link to={item.url} className="flex items-center gap-3">
+                    <Link
+                      to={item.url}
+                      className="flex items-center gap-3"
+                      onClick={handleLinkClick}
+                    >
                       <item.icon
                         className={`h-5 w-5 ${location.pathname === item.url ? 'text-secondary' : 'text-muted-foreground'}`}
                       />
@@ -77,6 +89,7 @@ export function AppSidebar() {
             <Link
               to="/login"
               className="text-xs text-muted-foreground flex items-center gap-1 hover:text-destructive transition-colors"
+              onClick={handleLinkClick}
             >
               <LogOut className="h-3 w-3" /> Sair
             </Link>
