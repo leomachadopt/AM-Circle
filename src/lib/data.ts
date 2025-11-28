@@ -135,6 +135,7 @@ export const mockPosts = [
     likes: 15,
     comments: 4,
     time: '2h atrás',
+    topic: 'Perguntas',
   },
   {
     id: 2,
@@ -145,5 +146,28 @@ export const mockPosts = [
     likes: 8,
     comments: 12,
     time: '5h atrás',
+    topic: 'Perguntas',
+  },
+  {
+    id: 3,
+    author: 'Dra. Mariana Costa',
+    avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=female&seed=3',
+    content:
+      'Encontrei esse artigo sobre tendências de marketing para 2025, vale a leitura: https://example.com/marketing-2025',
+    likes: 22,
+    comments: 7,
+    time: '1d atrás',
+    topic: 'Links Interessantes',
+  },
+  {
+    id: 4,
+    author: 'Dr. Roberto Lima',
+    avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=male&seed=4',
+    content:
+      'Compartilhando meu modelo de contrato de prestação de serviços. Espero que ajude!',
+    likes: 45,
+    comments: 18,
+    time: '2d atrás',
+    topic: 'Arquivos',
   },
 ]
