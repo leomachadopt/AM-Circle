@@ -289,6 +289,19 @@ export default function Profile() {
 
   return (
     <div className="space-y-8 animate-fade-in">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-black via-card to-black border border-primary/20 shadow-gold">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1200')] bg-cover bg-center opacity-10" />
+        <div className="relative z-10 p-8 md:p-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-shadow-gold animate-slide-in-left">
+            Meu Perfil
+          </h1>
+          <p className="text-lg text-foreground/90 max-w-2xl animate-slide-up">
+            Gerencie suas informações pessoais e configurações de conta.
+          </p>
+        </div>
+      </div>
+
       <div className="flex flex-col md:flex-row gap-6 items-start">
         <Card className="w-full md:w-1/3">
           <CardContent className="pt-6 flex flex-col items-center text-center space-y-4">

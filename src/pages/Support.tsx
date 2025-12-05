@@ -13,11 +13,21 @@ import { Mail, Phone, MessageCircle } from 'lucide-react'
 
 export default function Support() {
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-primary">Apoio Airlign Mastery Circle</h1>
-        <p className="text-muted-foreground">Estamos aqui para o ajudar.</p>
+    <div className="space-y-8 animate-fade-in">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-black via-card to-black border border-primary/20 shadow-gold">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1200')] bg-cover bg-center opacity-10" />
+        <div className="relative z-10 p-8 md:p-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-shadow-gold animate-slide-in-left">
+            Apoio Airlign Mastery Circle
+          </h1>
+          <p className="text-lg text-foreground/90 max-w-2xl animate-slide-up">
+            Estamos aqui para o ajudar.
+          </p>
+        </div>
       </div>
+
+      <div className="max-w-2xl mx-auto space-y-8">
 
       <div className="grid md:grid-cols-3 gap-4">
         <Card className="text-center hover:border-primary/50 transition-colors cursor-pointer">
@@ -64,6 +74,7 @@ export default function Support() {
           </form>
         </CardContent>
       </Card>
+      </div>
     </div>
   )
 }

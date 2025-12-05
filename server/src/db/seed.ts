@@ -134,26 +134,39 @@ async function seed() {
 
     // Criar eventos
     console.log('📅 Criando eventos...')
-    await db.insert(events).values([
-      {
-        title: 'Mentoria de Vendas Avançadas',
-        date: new Date('2024-06-15T19:00:00'),
-        type: 'Em Direto',
-        description: 'Mentoria sobre técnicas avançadas de vendas',
-      },
-      {
-        title: 'Análise de Casos Clínicos',
-        date: new Date('2024-06-22T20:00:00'),
-        type: 'Em Direto',
-        description: 'Análise de casos clínicos reais',
-      },
-      {
-        title: 'Workshop: Gestão Financeira',
-        date: new Date('2024-05-10T19:00:00'),
-        type: 'Gravação',
-        description: 'Workshop sobre gestão financeira',
-      },
-    ])
+    // Criar eventos com datas futuras (próximos 3 meses)
+    const now = new Date()
+    const nextMonth = new Date(now)
+    nextMonth.setMonth(now.getMonth() + 1)
+    const twoMonthsLater = new Date(now)
+    twoMonthsLater.setMonth(now.getMonth() + 2)
+    const threeMonthsLater = new Date(now)
+    threeMonthsLater.setMonth(now.getMonth() + 3)
+    
+    try {
+      await db.insert(events).values([
+        {
+          title: 'Mentoria de Vendas Avançadas',
+          date: new Date(nextMonth.getFullYear(), nextMonth.getMonth(), 15, 19, 0),
+          type: 'Em Direto',
+          description: 'Mentoria sobre técnicas avançadas de vendas',
+        },
+        {
+          title: 'Análise de Casos Clínicos',
+          date: new Date(twoMonthsLater.getFullYear(), twoMonthsLater.getMonth(), 22, 20, 0),
+          type: 'Em Direto',
+          description: 'Análise de casos clínicos reais',
+        },
+        {
+          title: 'Workshop: Gestão Financeira',
+          date: new Date(threeMonthsLater.getFullYear(), threeMonthsLater.getMonth(), 10, 19, 0),
+          type: 'Gravação',
+          description: 'Workshop sobre gestão financeira',
+        },
+      ])
+    } catch (e) {
+      console.log('Eventos já existem ou erro ao criar eventos:', e)
+    }
 
     // Criar ferramentas
     console.log('🔧 Criando ferramentas...')

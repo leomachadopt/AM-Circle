@@ -234,12 +234,18 @@ export default function KPIs() {
   }
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-primary">KPIs e Evolução</h1>
-        <p className="text-muted-foreground">
-          Acompanhe os números que realmente importam para o seu crescimento.
-        </p>
+    <div className="space-y-8 animate-fade-in">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-black via-card to-black border border-primary/20 shadow-gold">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200')] bg-cover bg-center opacity-10" />
+        <div className="relative z-10 p-8 md:p-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-shadow-gold animate-slide-in-left">
+            KPIs e Evolução
+          </h1>
+          <p className="text-lg text-foreground/90 max-w-2xl animate-slide-up">
+            Acompanhe os números que realmente importam para o seu crescimento.
+          </p>
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">

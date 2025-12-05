@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import {
   Card,
   CardContent,
@@ -9,9 +10,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Checkbox } from '@/components/ui/checkbox'
-import { mockUser, mockEvents } from '@/lib/data'
+import { mockUser } from '@/lib/data'
 import {
-  Bot,
   Calendar,
   CheckCircle2,
   PlayCircle,
@@ -21,13 +21,75 @@ import {
 import { format } from 'date-fns'
 import { pt } from 'date-fns/locale'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
+
+type Event = {
+  id: number
+  title: string
+  date: string
+  type: string
+  description?: string
+  imageUrl?: string
+  videoUrl?: string
+  meetingUrl?: string
+  address?: string
+}
+
 export default function Index() {
+  const [events, setEvents] = useState<Event[]>([])
+  const [isLoadingEvents, setIsLoadingEvents] = useState(true)
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 segundos de timeout
+        
+        const response = await fetch(`${API_URL}/events?futureOnly=true`, {
+          signal: controller.signal,
+        })
+        
+        clearTimeout(timeoutId)
+        
+        if (response.ok) {
+          const data = await response.json()
+          
+          // Filtrar eventos do tipo "Em Direto" ou "Presencial" com data futura
+          const now = new Date()
+          // Remover milissegundos para comparação mais precisa
+          now.setSeconds(0, 0)
+          
+          const futureEvents = data.filter((event: Event) => {
+            const eventDate = new Date(event.date)
+            eventDate.setSeconds(0, 0)
+            return (event.type === 'Em Direto' || event.type === 'Presencial') && eventDate >= now
+          })
+          
+          setEvents(futureEvents)
+        } else {
+          console.error('Erro ao buscar eventos:', response.status, response.statusText)
+        }
+      } catch (error: any) {
+        if (error.name === 'AbortError') {
+          console.error('Timeout ao buscar eventos - servidor pode estar lento ou offline')
+        } else if (error.message?.includes('Failed to fetch') || error.message?.includes('ERR_CONNECTION_REFUSED')) {
+          console.error('Erro de conexão - verifique se o servidor backend está rodando na porta 3001')
+        } else {
+          console.error('Erro ao buscar eventos:', error)
+        }
+      } finally {
+        setIsLoadingEvents(false)
+      }
+    }
+
+    fetchEvents()
+  }, [])
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Welcome Hero Section */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-black via-card to-black border border-primary/20 shadow-gold p-8 md:p-12">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=1200')] bg-cover bg-center opacity-10" />
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="relative z-10">
           <div className="space-y-2">
             <h1 className="text-4xl md:text-5xl font-bold text-primary text-shadow-gold animate-slide-in-left">
               Olá, {mockUser.name}!
@@ -36,15 +98,6 @@ export default function Index() {
               Bem-vindo de volta ao seu hub de excelência dentária.
             </p>
           </div>
-          <Button
-            asChild
-            className="bg-gradient-gold hover:bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-gold transition-all duration-300 px-8 h-12 animate-scale-in"
-          >
-            <Link to="/ai-assistant">
-              <Bot className="mr-2 h-5 w-5" />
-              Pergunte à IA
-            </Link>
-          </Button>
         </div>
       </div>
 
@@ -184,10 +237,18 @@ export default function Index() {
           <CardTitle className="text-2xl font-bold text-foreground">Próximos Eventos</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-6 md:grid-cols-3">
-            {mockEvents
-              .filter((e) => e.type === 'Em Direto')
-              .map((event, index) => (
+          {isLoadingEvents ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          ) : events.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              <Calendar className="h-12 w-12 mx-auto mb-4 opacity-20" />
+              <p>Não há eventos programados no momento.</p>
+            </div>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-3">
+              {events.map((event, index) => (
                 <div
                   key={event.id}
                   className="flex flex-col p-5 border border-border/40 rounded-xl hover:border-primary/50 bg-muted/20 hover:bg-muted/30 transition-all duration-300 hover:shadow-gold netflix-card"
@@ -203,12 +264,18 @@ export default function Index() {
                       locale: pt,
                     })}
                   </div>
-                  <Button className="mt-auto w-full bg-primary/20 hover:bg-gradient-gold text-foreground hover:text-primary-foreground border border-primary/30 font-semibold transition-all duration-300">
-                    Ver Detalhes
+                  <Button 
+                    asChild
+                    className="mt-auto w-full bg-primary/20 hover:bg-gradient-gold text-foreground hover:text-primary-foreground border border-primary/30 font-semibold transition-all duration-300"
+                  >
+                    <Link to={`/mentorships?event=${event.id}`}>
+                      Ver Detalhes
+                    </Link>
                   </Button>
                 </div>
               ))}
-          </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

@@ -16,6 +16,8 @@
     "db:create-tracks": "tsx src/db/create-tracks-tables.ts",
     "db:create-user-track-items": "tsx src/db/create-user-track-items-table.ts",
     "db:create-lesson-tasks": "tsx src/db/create-lesson-tasks-and-materials.ts",
+    "db:update-events-dates": "tsx src/db/update-events-dates.ts",
+    "db:create-future-events": "tsx src/db/create-future-events.ts",
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx src/db/seed.ts"
   },

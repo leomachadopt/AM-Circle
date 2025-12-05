@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { db } from '../db/index.js'
 import { events, eventRegistrations, users } from '../db/schema.js'
-import { eq, desc, and } from 'drizzle-orm'
+import { eq, desc, and, gte } from 'drizzle-orm'
 import { authenticate, AuthRequest } from '../middleware/auth.js'
 import { uploadEventImage, compressEventImage } from '../middleware/upload-event-image.js'
 
@@ -10,22 +10,49 @@ const router = Router()
 // Obter todos os eventos
 router.get('/', async (req, res) => {
   try {
-    const allEvents = await db
-      .select({
-        id: events.id,
-        title: events.title,
-        date: events.date,
-        type: events.type,
-        description: events.description,
-        imageUrl: events.imageUrl,
-        videoUrl: events.videoUrl,
-        meetingUrl: events.meetingUrl,
-        address: events.address,
-        createdAt: events.createdAt,
-        updatedAt: events.updatedAt,
-      })
-      .from(events)
-      .orderBy(desc(events.date))
+    const { futureOnly } = req.query
+    const now = new Date()
+
+    let allEvents
+
+    if (futureOnly === 'true') {
+      // Filtrar apenas eventos futuros
+      allEvents = await db
+        .select({
+          id: events.id,
+          title: events.title,
+          date: events.date,
+          type: events.type,
+          description: events.description,
+          imageUrl: events.imageUrl,
+          videoUrl: events.videoUrl,
+          meetingUrl: events.meetingUrl,
+          address: events.address,
+          createdAt: events.createdAt,
+          updatedAt: events.updatedAt,
+        })
+        .from(events)
+        .where(gte(events.date, now))
+        .orderBy(events.date)
+    } else {
+      // Buscar todos os eventos
+      allEvents = await db
+        .select({
+          id: events.id,
+          title: events.title,
+          date: events.date,
+          type: events.type,
+          description: events.description,
+          imageUrl: events.imageUrl,
+          videoUrl: events.videoUrl,
+          meetingUrl: events.meetingUrl,
+          address: events.address,
+          createdAt: events.createdAt,
+          updatedAt: events.updatedAt,
+        })
+        .from(events)
+        .orderBy(desc(events.date))
+    }
 
     res.json(allEvents)
   } catch (error: any) {

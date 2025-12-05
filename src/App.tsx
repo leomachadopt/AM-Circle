@@ -9,7 +9,6 @@ import Academy from './pages/Academy'
 import LessonDetails from './pages/LessonDetails'
 import Mentorships from './pages/Mentorships'
 import Tools from './pages/Tools'
-import AIAssistant from './pages/AIAssistant'
 import KPIs from './pages/KPIs'
 import Community from './pages/Community'
 import CustomTracks from './pages/CustomTracks'
@@ -44,7 +43,6 @@ const App = () => (
           <Route path="/academy/lesson/:id" element={<LessonDetails />} />
           <Route path="/mentorships" element={<Mentorships />} />
           <Route path="/tools" element={<Tools />} />
-          <Route path="/ai-assistant" element={<AIAssistant />} />
           <Route path="/kpis" element={<KPIs />} />
           <Route path="/community" element={<Community />} />
           <Route path="/tracks" element={<CustomTracks />} />

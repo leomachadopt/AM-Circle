@@ -104,14 +104,18 @@ export default function CustomTracks() {
   }
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-primary">
-          Trilhas Personalizadas
-        </h1>
-        <p className="text-muted-foreground">
-          Caminhos de aprendizagem desenhados para o seu momento atual.
-        </p>
+    <div className="space-y-8 animate-fade-in">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-black via-card to-black border border-primary/20 shadow-gold">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200')] bg-cover bg-center opacity-10" />
+        <div className="relative z-10 p-8 md:p-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-shadow-gold animate-slide-in-left">
+            Trilhas Personalizadas
+          </h1>
+          <p className="text-lg text-foreground/90 max-w-2xl animate-slide-up">
+            Caminhos de aprendizagem desenhados para o seu momento atual.
+          </p>
+        </div>
       </div>
 
       {isLoading ? (

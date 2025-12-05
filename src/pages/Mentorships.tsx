@@ -220,12 +220,18 @@ export default function Mentorships() {
   }
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold text-primary">Mentorias e Eventos</h1>
-        <p className="text-muted-foreground">
-          Participe em direto e tire as suas dúvidas com especialistas.
-        </p>
+    <div className="space-y-8 animate-fade-in">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-black via-card to-black border border-primary/20 shadow-gold">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200')] bg-cover bg-center opacity-10" />
+        <div className="relative z-10 p-8 md:p-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-shadow-gold animate-slide-in-left">
+            Mentorias e Eventos
+          </h1>
+          <p className="text-lg text-foreground/90 max-w-2xl animate-slide-up">
+            Participe em direto e tire as suas dúvidas com especialistas.
+          </p>
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
