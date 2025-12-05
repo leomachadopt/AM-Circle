@@ -13,6 +13,7 @@ import questionsRouter from './routes/questions.js'
 import articlesRouter from './routes/articles.js'
 import categoriesRouter from './routes/categories.js'
 import postCategoriesRouter from './routes/post-categories.js'
+import tracksRouter from './routes/tracks.js'
 import authRouter from './routes/auth.js'
 
 dotenv.config()
@@ -35,6 +36,8 @@ app.use('/uploads/avatars', express.static(path.join(__dirname, '../uploads/avat
 app.use('/uploads/posts/images', express.static(path.join(__dirname, '../uploads/posts/images')))
 // Servir arquivos de posts
 app.use('/uploads/posts/files', express.static(path.join(__dirname, '../uploads/posts/files')))
+// Servir imagens de eventos
+app.use('/uploads/events/images', express.static(path.join(__dirname, '../uploads/events/images')))
 
 // Health check
 app.get('/health', (req, res) => {
@@ -53,6 +56,7 @@ app.use('/api/questions', questionsRouter)
 app.use('/api/articles', articlesRouter)
 app.use('/api/categories', categoriesRouter)
 app.use('/api/post-categories', postCategoriesRouter)
+app.use('/api/tracks', tracksRouter)
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`)

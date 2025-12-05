@@ -25,6 +25,7 @@ export default function Academy() {
   const [activeModule, setActiveModule] = useState('Todos')
   const [lessons, setLessons] = useState<Lesson[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set())
   const modules = [
     'Todos',
     'Gestão',
@@ -33,6 +34,19 @@ export default function Academy() {
     'Liderança',
     'Financeiro',
   ]
+
+  const getImageUrl = (lesson: Lesson) => {
+    if (lesson.imageUrl) return lesson.imageUrl
+    if (failedImages.has(lesson.id)) {
+      // Usar uma imagem placeholder quando o serviço externo falhar
+      return `https://via.placeholder.com/400x225/1a1a1a/FFD700?text=${encodeURIComponent(lesson.module)}`
+    }
+    return `https://img.usecurling.com/p/400/225?q=dental%20${encodeURIComponent(lesson.module)}&color=gold`
+  }
+
+  const handleImageError = (lessonId: number) => {
+    setFailedImages((prev) => new Set(prev).add(lessonId))
+  }
 
   useEffect(() => {
     fetchLessons()
@@ -127,11 +141,9 @@ export default function Academy() {
                   >
                     <div className="aspect-video bg-black relative overflow-hidden">
                       <img
-                        src={
-                          lesson.imageUrl ||
-                          `https://img.usecurling.com/p/400/225?q=dental%20${lesson.module}&color=gold`
-                        }
+                        src={getImageUrl(lesson)}
                         alt={lesson.title}
+                        onError={() => handleImageError(lesson.id)}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-netflix"
                       />
                       <div className="absolute inset-0 bg-gradient-overlay opacity-60 group-hover:opacity-40 transition-opacity duration-300" />

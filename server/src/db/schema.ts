@@ -53,12 +53,22 @@ export const events = pgTable('events', {
   id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
   date: timestamp('date').notNull(),
-  type: varchar('type', { length: 50 }).notNull(), // 'Em Direto' ou 'Gravação'
+  type: varchar('type', { length: 50 }).notNull(), // 'Em Direto', 'Gravação' ou 'Presencial'
   description: text('description'),
+  imageUrl: text('image_url'), // URL da imagem do evento
   videoUrl: text('video_url'),
   meetingUrl: text('meeting_url'),
+  address: text('address'), // Endereço para eventos presenciais
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Tabela de Confirmações de Participação em Eventos
+export const eventRegistrations = pgTable('event_registrations', {
+  id: serial('id').primaryKey(),
+  eventId: integer('event_id').references(() => events.id, { onDelete: 'cascade' }).notNull(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 // Tabela de Ferramentas
@@ -177,6 +187,86 @@ export const postCategories = pgTable('post_categories', {
   name: varchar('name', { length: 100 }).notNull().unique(),
   slug: varchar('slug', { length: 100 }).notNull().unique(),
   description: text('description'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Tabela de Trilhas
+export const tracks = pgTable('tracks', {
+  id: serial('id').primaryKey(),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description'),
+  published: boolean('published').default(false).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Tabela de Itens das Trilhas (artigos, vídeos, ferramentas)
+export const trackItems = pgTable('track_items', {
+  id: serial('id').primaryKey(),
+  trackId: integer('track_id').references(() => tracks.id, { onDelete: 'cascade' }).notNull(),
+  type: varchar('type', { length: 50 }).notNull(), // 'article', 'lesson', 'tool'
+  itemId: integer('item_id').notNull(), // ID do artigo, aula ou ferramenta
+  order: integer('order').default(0), // Ordem do item na trilha
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Tabela de Progresso do Usuário nos Itens das Trilhas
+export const userTrackItems = pgTable('user_track_items', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  trackItemId: integer('track_item_id').references(() => trackItems.id, { onDelete: 'cascade' }).notNull(),
+  completed: boolean('completed').default(false).notNull(),
+  completedAt: timestamp('completed_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Tabela de Tarefas de Ativação das Aulas
+export const lessonActivationTasks = pgTable('lesson_activation_tasks', {
+  id: serial('id').primaryKey(),
+  lessonId: integer('lesson_id').references(() => lessons.id, { onDelete: 'cascade' }).notNull(),
+  title: text('title').notNull(),
+  order: integer('order').default(0),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Tabela de Progresso do Usuário nas Tarefas de Ativação
+export const userActivationTasks = pgTable('user_activation_tasks', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  taskId: integer('task_id').references(() => lessonActivationTasks.id, { onDelete: 'cascade' }).notNull(),
+  completed: boolean('completed').default(false).notNull(),
+  completedAt: timestamp('completed_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Tabela de Materiais das Aulas
+export const lessonMaterials = pgTable('lesson_materials', {
+  id: serial('id').primaryKey(),
+  lessonId: integer('lesson_id').references(() => lessons.id, { onDelete: 'cascade' }).notNull(),
+  title: varchar('title', { length: 255 }).notNull(),
+  fileUrl: text('file_url'),
+  fileType: varchar('file_type', { length: 50 }), // 'pdf', 'xls', 'doc', etc.
+  fileSize: integer('file_size'), // em bytes
+  order: integer('order').default(0),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+})
+
+// Tabela de Comentários/Dúvidas das Aulas
+export const lessonComments = pgTable('lesson_comments', {
+  id: serial('id').primaryKey(),
+  lessonId: integer('lesson_id').references(() => lessons.id, { onDelete: 'cascade' }).notNull(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  parentId: integer('parent_id').references(() => lessonComments.id), // Para respostas
+  author: varchar('author', { length: 255 }).notNull(),
+  avatar: text('avatar'),
+  content: text('content').notNull(),
+  likes: integer('likes').default(0),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })

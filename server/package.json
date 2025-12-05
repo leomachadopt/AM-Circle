@@ -10,6 +10,12 @@
     "start": "node dist/index.js",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/db/migrate.ts",
+    "db:create-post-likes": "tsx src/db/create-post-likes-table.ts",
+    "db:add-event-address": "tsx src/db/add-event-address-and-registrations.ts",
+    "db:add-event-image": "tsx src/db/add-event-image-url.ts",
+    "db:create-tracks": "tsx src/db/create-tracks-tables.ts",
+    "db:create-user-track-items": "tsx src/db/create-user-track-items-table.ts",
+    "db:create-lesson-tasks": "tsx src/db/create-lesson-tasks-and-materials.ts",
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx src/db/seed.ts"
   },

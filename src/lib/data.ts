@@ -34,6 +34,7 @@ export const adminNavItems = [
   { title: 'Gerenciar Eventos', url: '/admin/mentorships', icon: Calendar },
   { title: 'Gerenciar Ferramentas', url: '/admin/tools', icon: Wrench },
   { title: 'Gerenciar Artigos', url: '/admin/articles', icon: BookOpen },
+  { title: 'Gerenciar Trilhas', url: '/admin/tracks', icon: Route },
   { title: 'Gerenciar Usuários', url: '/admin/users', icon: Users },
   { title: 'Categorias de Posts', url: '/admin/post-categories', icon: Tag },
   { title: 'Perguntas de Mentorias', url: '/admin/questions', icon: MessageSquare },

@@ -29,7 +29,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
-import { Plus, Pencil, Trash2, Search } from 'lucide-react'
+import { Plus, Pencil, Trash2, Search, ListTodo, FileText, X } from 'lucide-react'
 import { toast } from 'sonner'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
@@ -46,13 +46,37 @@ type Lesson = {
   order: number
 }
 
+type ActivationTask = {
+  id: number
+  lessonId: number
+  title: string
+  order: number
+}
+
+type Material = {
+  id: number
+  lessonId: number
+  title: string
+  fileUrl?: string
+  fileType?: string
+  fileSize?: number
+  order: number
+}
+
 const modules = ['Gestão', 'Marketing', 'Atendimento', 'Liderança', 'Financeiro']
 
 export default function AdminAcademy() {
   const [lessons, setLessons] = useState<Lesson[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isTasksDialogOpen, setIsTasksDialogOpen] = useState(false)
+  const [isMaterialsDialogOpen, setIsMaterialsDialogOpen] = useState(false)
   const [editingLesson, setEditingLesson] = useState<Lesson | null>(null)
+  const [currentLessonId, setCurrentLessonId] = useState<number | null>(null)
+  const [activationTasks, setActivationTasks] = useState<ActivationTask[]>([])
+  const [materials, setMaterials] = useState<Material[]>([])
+  const [newTaskTitle, setNewTaskTitle] = useState('')
+  const [newMaterial, setNewMaterial] = useState({ title: '', fileUrl: '', fileType: '', fileSize: '' })
   const [searchTerm, setSearchTerm] = useState('')
   const [formData, setFormData] = useState({
     title: '',
@@ -202,6 +226,137 @@ export default function AdminAcademy() {
     }
   }
 
+  const handleOpenTasksDialog = async (lessonId: number) => {
+    setCurrentLessonId(lessonId)
+    setIsTasksDialogOpen(true)
+    await fetchActivationTasks(lessonId)
+  }
+
+  const handleOpenMaterialsDialog = async (lessonId: number) => {
+    setCurrentLessonId(lessonId)
+    setIsMaterialsDialogOpen(true)
+    await fetchMaterials(lessonId)
+  }
+
+  const fetchActivationTasks = async (lessonId: number) => {
+    try {
+      const response = await fetch(`${API_URL}/lessons/${lessonId}/activation-tasks`)
+      if (response.ok) {
+        const data = await response.json()
+        setActivationTasks(data)
+      }
+    } catch (error) {
+      console.error('Erro ao buscar tarefas:', error)
+    }
+  }
+
+  const fetchMaterials = async (lessonId: number) => {
+    try {
+      const response = await fetch(`${API_URL}/lessons/${lessonId}/materials`)
+      if (response.ok) {
+        const data = await response.json()
+        setMaterials(data)
+      }
+    } catch (error) {
+      console.error('Erro ao buscar materiais:', error)
+    }
+  }
+
+  const handleAddTask = async () => {
+    if (!newTaskTitle.trim() || !currentLessonId) return
+
+    try {
+      const response = await fetch(`${API_URL}/lessons/${currentLessonId}/activation-tasks`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: newTaskTitle.trim(),
+          order: activationTasks.length,
+        }),
+      })
+
+      if (response.ok) {
+        toast.success('Tarefa adicionada!')
+        setNewTaskTitle('')
+        fetchActivationTasks(currentLessonId)
+      } else {
+        toast.error('Erro ao adicionar tarefa')
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar tarefa:', error)
+      toast.error('Erro ao conectar com o servidor')
+    }
+  }
+
+  const handleDeleteTask = async (taskId: number) => {
+    if (!confirm('Tem certeza que deseja excluir esta tarefa?')) return
+
+    try {
+      const response = await fetch(`${API_URL}/lessons/activation-tasks/${taskId}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        toast.success('Tarefa excluída!')
+        if (currentLessonId) fetchActivationTasks(currentLessonId)
+      } else {
+        toast.error('Erro ao excluir tarefa')
+      }
+    } catch (error) {
+      console.error('Erro ao excluir tarefa:', error)
+      toast.error('Erro ao conectar com o servidor')
+    }
+  }
+
+  const handleAddMaterial = async () => {
+    if (!newMaterial.title.trim() || !currentLessonId) return
+
+    try {
+      const response = await fetch(`${API_URL}/lessons/${currentLessonId}/materials`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: newMaterial.title.trim(),
+          fileUrl: newMaterial.fileUrl || null,
+          fileType: newMaterial.fileType || null,
+          fileSize: newMaterial.fileSize ? parseInt(newMaterial.fileSize) : null,
+          order: materials.length,
+        }),
+      })
+
+      if (response.ok) {
+        toast.success('Material adicionado!')
+        setNewMaterial({ title: '', fileUrl: '', fileType: '', fileSize: '' })
+        fetchMaterials(currentLessonId)
+      } else {
+        toast.error('Erro ao adicionar material')
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar material:', error)
+      toast.error('Erro ao conectar com o servidor')
+    }
+  }
+
+  const handleDeleteMaterial = async (materialId: number) => {
+    if (!confirm('Tem certeza que deseja excluir este material?')) return
+
+    try {
+      const response = await fetch(`${API_URL}/lessons/materials/${materialId}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        toast.success('Material excluído!')
+        if (currentLessonId) fetchMaterials(currentLessonId)
+      } else {
+        toast.error('Erro ao excluir material')
+      }
+    } catch (error) {
+      console.error('Erro ao excluir material:', error)
+      toast.error('Erro ao conectar com o servidor')
+    }
+  }
+
   const filteredLessons = lessons.filter(
     (lesson) =>
       lesson.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -215,7 +370,7 @@ export default function AdminAcademy() {
           Painel Administrativo - Academia AMC
         </h1>
         <p className="text-muted-foreground">
-          Gerencie as aulas da Academia AMC
+          Gerencie as aulas da Academia AMC. Use os botões <strong>Tarefas</strong> e <strong>Materiais</strong> na tabela para adicionar conteúdo específico de cada aula.
         </p>
       </div>
 
@@ -324,8 +479,17 @@ export default function AdminAcademy() {
                               videoUrl: e.target.value,
                             })
                           }
-                          placeholder="https://..."
+                          placeholder="https://youtube.com/watch?v=... ou https://vimeo.com/..."
                         />
+                        <p className="text-xs text-muted-foreground">
+                          Suporta URLs do YouTube e Vimeo. Exemplos:
+                          <br />
+                          • YouTube: https://youtube.com/watch?v=VIDEO_ID
+                          <br />
+                          • Vimeo: https://vimeo.com/VIDEO_ID
+                          <br />
+                          • Embed direto: https://youtube.com/embed/VIDEO_ID
+                        </p>
                       </div>
 
                       <div className="grid gap-2">
@@ -416,7 +580,8 @@ export default function AdminAcademy() {
                   <TableHead>Título</TableHead>
                   <TableHead>Módulo</TableHead>
                   <TableHead>Duração</TableHead>
-                  <TableHead className="text-right">Ações</TableHead>
+                  <TableHead>Vídeo</TableHead>
+                  <TableHead>Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -432,12 +597,40 @@ export default function AdminAcademy() {
                       <Badge variant="outline">{lesson.module}</Badge>
                     </TableCell>
                     <TableCell>{lesson.duration}</TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
+                    <TableCell>
+                      {lesson.videoUrl ? (
+                        <Badge variant="default" className="bg-green-500">
+                          Sim
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary">Não</Badge>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex justify-end gap-2 flex-wrap">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleOpenTasksDialog(lesson.id)}
+                          className="text-xs"
+                        >
+                          <ListTodo className="h-3 w-3 mr-1" />
+                          Tarefas
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleOpenMaterialsDialog(lesson.id)}
+                          className="text-xs"
+                        >
+                          <FileText className="h-3 w-3 mr-1" />
+                          Materiais
+                        </Button>
                         <Button
                           variant="ghost"
                           size="icon"
                           onClick={() => handleOpenDialog(lesson)}
+                          title="Editar Aula"
                         >
                           <Pencil className="h-4 w-4" />
                         </Button>
@@ -446,6 +639,7 @@ export default function AdminAcademy() {
                           size="icon"
                           onClick={() => handleDelete(lesson.id)}
                           className="text-destructive hover:text-destructive"
+                          title="Excluir Aula"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -458,6 +652,152 @@ export default function AdminAcademy() {
           )}
         </CardContent>
       </Card>
+
+      {/* Dialog de Tarefas de Ativação */}
+      <Dialog open={isTasksDialogOpen} onOpenChange={setIsTasksDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Gerenciar Tarefas de Ativação</DialogTitle>
+            <DialogDescription>
+              Adicione e gerencie as tarefas de ativação desta aula
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <Input
+                placeholder="Nova tarefa de ativação..."
+                value={newTaskTitle}
+                onChange={(e) => setNewTaskTitle(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    handleAddTask()
+                  }
+                }}
+              />
+              <Button onClick={handleAddTask} disabled={!newTaskTitle.trim()}>
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {activationTasks.length === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  Nenhuma tarefa cadastrada. Adicione uma nova tarefa acima.
+                </p>
+              ) : (
+                activationTasks.map((task) => (
+                  <div
+                    key={task.id}
+                    className="flex items-center justify-between p-3 border rounded-lg"
+                  >
+                    <span className="text-sm">{task.title}</span>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDeleteTask(task.id)}
+                      className="text-destructive"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsTasksDialogOpen(false)}>
+              Fechar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog de Materiais */}
+      <Dialog open={isMaterialsDialogOpen} onOpenChange={setIsMaterialsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Gerenciar Materiais</DialogTitle>
+            <DialogDescription>
+              Adicione e gerencie os materiais desta aula
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid gap-2 p-4 border rounded-lg">
+              <Label>Título do Material</Label>
+              <Input
+                placeholder="Ex: Diapositivos da Aula"
+                value={newMaterial.title}
+                onChange={(e) => setNewMaterial({ ...newMaterial, title: e.target.value })}
+              />
+              <Label>URL do Arquivo</Label>
+              <Input
+                placeholder="https://..."
+                value={newMaterial.fileUrl}
+                onChange={(e) => setNewMaterial({ ...newMaterial, fileUrl: e.target.value })}
+              />
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <Label>Tipo (opcional)</Label>
+                  <Input
+                    placeholder="Ex: pdf, xls, doc"
+                    value={newMaterial.fileType}
+                    onChange={(e) => setNewMaterial({ ...newMaterial, fileType: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <Label>Tamanho em bytes (opcional)</Label>
+                  <Input
+                    type="number"
+                    placeholder="Ex: 2516582"
+                    value={newMaterial.fileSize}
+                    onChange={(e) => setNewMaterial({ ...newMaterial, fileSize: e.target.value })}
+                  />
+                </div>
+              </div>
+              <Button onClick={handleAddMaterial} disabled={!newMaterial.title.trim()}>
+                <Plus className="h-4 w-4 mr-2" />
+                Adicionar Material
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {materials.length === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  Nenhum material cadastrado. Adicione um novo material acima.
+                </p>
+              ) : (
+                materials.map((material) => (
+                  <div
+                    key={material.id}
+                    className="flex items-center justify-between p-3 border rounded-lg"
+                  >
+                    <div>
+                      <span className="text-sm font-medium">{material.title}</span>
+                      {material.fileType && (
+                        <Badge variant="outline" className="ml-2">
+                          {material.fileType.toUpperCase()}
+                        </Badge>
+                      )}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleDeleteMaterial(material.id)}
+                      className="text-destructive"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsMaterialsDialogOpen(false)}>
+              Fechar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

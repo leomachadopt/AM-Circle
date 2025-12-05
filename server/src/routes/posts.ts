@@ -230,20 +230,37 @@ router.post('/:id/like', authenticate, async (req: AuthRequest, res) => {
     }
 
     // Verificar se o usuário já curtiu o post
-    const existingLike = await db
-      .select()
-      .from(postLikes)
-      .where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
-      .limit(1)
+    let existingLike
+    try {
+      existingLike = await db
+        .select()
+        .from(postLikes)
+        .where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
+        .limit(1)
+    } catch (error: any) {
+      console.error('Erro ao buscar like existente:', error)
+      // Se a tabela não existir, retornar erro mais específico
+      if (error.message && error.message.includes('does not exist')) {
+        return res.status(500).json({ 
+          error: 'Tabela de likes não encontrada. Execute a migration 0011_create_post_likes.sql' 
+        })
+      }
+      throw error
+    }
 
     let updatedPost
     let isLiked
 
     if (existingLike.length > 0) {
       // Descurtir: remover o like
-      await db
-        .delete(postLikes)
-        .where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
+      try {
+        await db
+          .delete(postLikes)
+          .where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
+      } catch (error: any) {
+        console.error('Erro ao deletar like:', error)
+        throw error
+      }
 
       // Atualizar contador de likes
       updatedPost = await db
@@ -258,33 +275,93 @@ router.post('/:id/like', authenticate, async (req: AuthRequest, res) => {
       isLiked = false
     } else {
       // Curtir: adicionar o like
-      await db
-        .insert(postLikes)
-        .values({
-          postId,
-          userId,
-        })
+      try {
+        await db
+          .insert(postLikes)
+          .values({
+            postId,
+            userId,
+          })
+      } catch (error: any) {
+        console.error('Erro ao inserir like:', error)
+        // Se for erro de constraint única, significa que já existe (race condition)
+        if (error.message && error.message.includes('unique')) {
+          // Tentar novamente buscar o like
+          const retryLike = await db
+            .select()
+            .from(postLikes)
+            .where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
+            .limit(1)
+          
+          if (retryLike.length > 0) {
+            // Já existe, então descurtir
+            await db
+              .delete(postLikes)
+              .where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
+            
+            updatedPost = await db
+              .update(posts)
+              .set({
+                likes: Math.max(0, (post[0].likes || 0) - 1),
+                updatedAt: new Date(),
+              })
+              .where(eq(posts.id, postId))
+              .returning()
+            
+            isLiked = false
+          } else {
+            throw error
+          }
+        } else {
+          throw error
+        }
+      }
 
-      // Atualizar contador de likes
-      updatedPost = await db
-        .update(posts)
-        .set({
-          likes: (post[0].likes || 0) + 1,
-          updatedAt: new Date(),
-        })
-        .where(eq(posts.id, postId))
-        .returning()
+      if (!updatedPost) {
+        // Atualizar contador de likes
+        updatedPost = await db
+          .update(posts)
+          .set({
+            likes: (post[0].likes || 0) + 1,
+            updatedAt: new Date(),
+          })
+          .where(eq(posts.id, postId))
+          .returning()
 
-      isLiked = true
+        isLiked = true
+      }
+    }
+
+    if (!updatedPost || updatedPost.length === 0) {
+      return res.status(500).json({ error: 'Erro ao atualizar post' })
     }
 
     res.json({
       ...updatedPost[0],
       isLiked,
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro ao curtir/descurtir post:', error)
-    res.status(500).json({ error: 'Erro ao curtir/descurtir post' })
+    console.error('Stack trace:', error.stack)
+    console.error('Post ID:', req.params.id)
+    console.error('User ID:', req.user?.id)
+    
+    // Mensagem de erro mais específica
+    let errorMessage = 'Erro ao curtir/descurtir post'
+    if (error.message) {
+      if (error.message.includes('does not exist') || error.message.includes('relation') || error.message.includes('table')) {
+        errorMessage = 'Tabela de likes não encontrada. Execute a migration: npm run db:migrate'
+      } else if (error.message.includes('foreign key') || error.message.includes('constraint')) {
+        errorMessage = 'Erro de integridade: verifique se o post e usuário existem'
+      } else {
+        errorMessage = error.message
+      }
+    }
+    
+    res.status(500).json({ 
+      error: errorMessage,
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    })
   }
 })
 

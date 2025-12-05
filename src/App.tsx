@@ -23,6 +23,7 @@ import AdminArticles from './pages/AdminArticles'
 import AdminUsers from './pages/AdminUsers'
 import AdminPostCategories from './pages/AdminPostCategories'
 import AdminQuestions from './pages/AdminQuestions'
+import AdminTracks from './pages/AdminTracks'
 import Articles from './pages/Articles'
 import ArticleDetails from './pages/ArticleDetails'
 import NotFound from './pages/NotFound'
@@ -112,6 +113,14 @@ const App = () => (
             element={
               <ProtectedRoute requireAdmin>
                 <AdminQuestions />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/tracks"
+            element={
+              <ProtectedRoute requireAdmin>
+                <AdminTracks />
               </ProtectedRoute>
             }
           />
