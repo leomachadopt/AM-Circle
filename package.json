@@ -1,6 +1,6 @@
 {
-  "name": "skip-react-template",
-  "description": "A frontend React Vite TypeScript Shadcn UI template for Skip projects",
+  "name": "airligner-mastery",
+  "description": "Plataforma educacional para medicina dentária - Academia AMC",
   "private": true,
   "version": "0.0.7",
   "type": "module",

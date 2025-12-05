@@ -16,7 +16,7 @@ export default function CustomTracks() {
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-primary">
-          Percursos Personalizados
+          Trilhas Personalizadas
         </h1>
         <p className="text-muted-foreground">
           Caminhos de aprendizagem desenhados para o seu momento atual.

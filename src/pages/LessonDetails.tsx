@@ -1,14 +1,86 @@
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ArrowLeft, Download, MessageSquare } from 'lucide-react'
-import { mockLessons } from '@/lib/data'
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
+
+type Lesson = {
+  id: number
+  title: string
+  duration: string
+  module: string
+  moduleId?: number
+  videoUrl?: string
+  description?: string
+  order: number
+}
 
 export default function LessonDetails() {
   const { id } = useParams()
-  const lesson = mockLessons.find((l) => l.id === Number(id)) || mockLessons[0]
+  const [lesson, setLesson] = useState<Lesson | null>(null)
+  const [allLessons, setAllLessons] = useState<Lesson[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    fetchLesson()
+    fetchAllLessons()
+  }, [id])
+
+  const fetchLesson = async () => {
+    try {
+      setIsLoading(true)
+      const response = await fetch(`${API_URL}/lessons/${id}`)
+      if (response.ok) {
+        const data = await response.json()
+        setLesson(data)
+      }
+    } catch (error) {
+      console.error('Erro ao buscar aula:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const fetchAllLessons = async () => {
+    try {
+      const response = await fetch(`${API_URL}/lessons`)
+      if (response.ok) {
+        const data = await response.json()
+        setAllLessons(data)
+      }
+    } catch (error) {
+      console.error('Erro ao buscar aulas:', error)
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <div className="text-center py-12 text-muted-foreground">
+          <p>Carregando aula...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!lesson) {
+    return (
+      <div className="space-y-6">
+        <Button variant="ghost" asChild className="pl-0 hover:pl-2 transition-all">
+          <Link to="/academy">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para a Academia
+          </Link>
+        </Button>
+        <div className="text-center py-12 text-muted-foreground">
+          <p>Aula não encontrada.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">
@@ -39,9 +111,8 @@ export default function LessonDetails() {
               {lesson.title}
             </h1>
             <p className="text-muted-foreground">
-              Nesta aula, vamos explorar os conceitos fundamentais para
-              transformar a sua clínica num negócio rentável e organizado.
-              Aprenda as estratégias que o top 1% dos dentistas utiliza.
+              {lesson.description ||
+                'Nesta aula, vamos explorar os conceitos fundamentais para transformar a sua clínica num negócio rentável e organizado. Aprenda as estratégias que o top 1% dos dentistas utiliza.'}
             </p>
           </div>
 
@@ -134,7 +205,7 @@ export default function LessonDetails() {
               <CardTitle className="text-base">Próximas Aulas</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {mockLessons
+              {allLessons
                 .filter((l) => l.id !== lesson.id)
                 .slice(0, 3)
                 .map((nextLesson) => (
@@ -149,12 +220,14 @@ export default function LessonDetails() {
                       />
                     </div>
                     <div>
-                      <p className="text-sm font-medium leading-tight group-hover:text-primary transition-colors">
-                        {nextLesson.title}
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {nextLesson.duration}
-                      </p>
+                      <Link to={`/academy/lesson/${nextLesson.id}`}>
+                        <p className="text-sm font-medium leading-tight group-hover:text-primary transition-colors">
+                          {nextLesson.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {nextLesson.duration}
+                        </p>
+                      </Link>
                     </div>
                   </div>
                 ))}

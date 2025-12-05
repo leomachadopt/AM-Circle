@@ -9,19 +9,34 @@ import {
   Users,
   User,
   LifeBuoy,
+  Settings,
+  BookOpen,
+  Tag,
+  MessageSquare,
 } from 'lucide-react'
 
 export const navItems = [
   { title: 'Dashboard', url: '/', icon: LayoutDashboard },
-  { title: 'Academia HBM', url: '/academy', icon: GraduationCap },
+  { title: 'Academia AMC', url: '/academy', icon: GraduationCap },
   { title: 'Mentorias e Eventos', url: '/mentorships', icon: Calendar },
   { title: 'Ferramentas', url: '/tools', icon: Wrench },
   { title: 'Assistente IA', url: '/ai-assistant', icon: Bot },
   { title: 'KPIs e Evolução', url: '/kpis', icon: BarChart2 },
-  { title: 'Percursos', url: '/tracks', icon: Route },
+  { title: 'Trilhas', url: '/tracks', icon: Route },
+  { title: 'Biblioteca de Artigos', url: '/articles', icon: BookOpen },
   { title: 'Comunidade', url: '/community', icon: Users },
   { title: 'Perfil', url: '/profile', icon: User },
   { title: 'Apoio', url: '/support', icon: LifeBuoy },
+]
+
+export const adminNavItems = [
+  { title: 'Gerenciar Aulas', url: '/admin/academy', icon: Settings },
+  { title: 'Gerenciar Eventos', url: '/admin/mentorships', icon: Calendar },
+  { title: 'Gerenciar Ferramentas', url: '/admin/tools', icon: Wrench },
+  { title: 'Gerenciar Artigos', url: '/admin/articles', icon: BookOpen },
+  { title: 'Gerenciar Usuários', url: '/admin/users', icon: Users },
+  { title: 'Categorias de Posts', url: '/admin/post-categories', icon: Tag },
+  { title: 'Perguntas de Mentorias', url: '/admin/questions', icon: MessageSquare },
 ]
 
 export const mockUser = {
@@ -123,49 +138,3 @@ export const mockTools = [
   },
 ]
 
-export const mockPosts = [
-  {
-    id: 1,
-    author: 'Dra. Ana Souza',
-    avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=female',
-    content:
-      'Alguém já implementou o novo guião de vendas? Tive um aumento de 20% na conversão esta semana!',
-    likes: 15,
-    comments: 4,
-    time: '2h atrás',
-    topic: 'Perguntas',
-  },
-  {
-    id: 2,
-    author: 'Dr. Carlos Mendes',
-    avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=male&seed=2',
-    content:
-      'Dúvida sobre o módulo financeiro: como estão a calcular a hora clínica?',
-    likes: 8,
-    comments: 12,
-    time: '5h atrás',
-    topic: 'Perguntas',
-  },
-  {
-    id: 3,
-    author: 'Dra. Mariana Costa',
-    avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=female&seed=3',
-    content:
-      'Encontrei este artigo sobre tendências de marketing para 2025, vale a leitura: https://example.com/marketing-2025',
-    likes: 22,
-    comments: 7,
-    time: '1d atrás',
-    topic: 'Links Interessantes',
-  },
-  {
-    id: 4,
-    author: 'Dr. Roberto Lima',
-    avatar: 'https://img.usecurling.com/ppl/thumbnail?gender=male&seed=4',
-    content:
-      'A partilhar o meu modelo de contrato de prestação de serviços. Espero que ajude!',
-    likes: 45,
-    comments: 18,
-    time: '2d atrás',
-    topic: 'Ficheiros',
-  },
-]

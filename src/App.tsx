@@ -16,7 +16,17 @@ import CustomTracks from './pages/CustomTracks'
 import TrackDetails from './pages/TrackDetails'
 import Profile from './pages/Profile'
 import Support from './pages/Support'
+import AdminAcademy from './pages/AdminAcademy'
+import AdminMentorships from './pages/AdminMentorships'
+import AdminTools from './pages/AdminTools'
+import AdminArticles from './pages/AdminArticles'
+import AdminUsers from './pages/AdminUsers'
+import AdminPostCategories from './pages/AdminPostCategories'
+import AdminQuestions from './pages/AdminQuestions'
+import Articles from './pages/Articles'
+import ArticleDetails from './pages/ArticleDetails'
 import NotFound from './pages/NotFound'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const App = () => (
   <BrowserRouter
@@ -38,8 +48,73 @@ const App = () => (
           <Route path="/community" element={<Community />} />
           <Route path="/tracks" element={<CustomTracks />} />
           <Route path="/tracks/:id" element={<TrackDetails />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/articles" element={<Articles />} />
+          <Route path="/articles/:slug" element={<ArticleDetails />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/support" element={<Support />} />
+          <Route
+            path="/admin/academy"
+            element={
+              <ProtectedRoute requireAdmin>
+                <AdminAcademy />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/mentorships"
+            element={
+              <ProtectedRoute requireAdmin>
+                <AdminMentorships />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/tools"
+            element={
+              <ProtectedRoute requireAdmin>
+                <AdminTools />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/articles"
+            element={
+              <ProtectedRoute requireAdmin>
+                <AdminArticles />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute requireAdmin>
+                <AdminUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/post-categories"
+            element={
+              <ProtectedRoute requireAdmin>
+                <AdminPostCategories />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/questions"
+            element={
+              <ProtectedRoute requireAdmin>
+                <AdminQuestions />
+              </ProtectedRoute>
+            }
+          />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

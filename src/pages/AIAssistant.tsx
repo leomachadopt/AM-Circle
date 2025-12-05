@@ -17,7 +17,7 @@ export default function AIAssistant() {
     {
       id: 1,
       role: 'ai',
-      content: `Olá, ${mockUser.name}! Sou a sua assistente HBM. Como posso ajudar a otimizar a sua clínica hoje?`,
+      content: `Olá, ${mockUser.name}! Sou a sua assistente AMC. Como posso ajudar a otimizar a sua clínica hoje?`,
     },
   ])
   const [input, setInput] = useState('')
@@ -45,7 +45,7 @@ export default function AIAssistant() {
         id: Date.now() + 1,
         role: 'ai',
         content:
-          'Entendi. Aqui está uma sugestão baseada nas melhores práticas do HBM:\n\nPara aumentar a conversão de branqueamento, foque-se nos benefícios emocionais e na rapidez do resultado. Gostaria que eu detalhasse um guião específico?',
+          'Entendi. Aqui está uma sugestão baseada nas melhores práticas do AMC:\n\nPara aumentar a conversão de branqueamento, foque-se nos benefícios emocionais e na rapidez do resultado. Gostaria que eu detalhasse um guião específico?',
       }
       setMessages((prev) => [...prev, aiResponse])
       setIsTyping(false)
@@ -63,7 +63,7 @@ export default function AIAssistant() {
           <Bot className="h-6 w-6 text-primary" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-primary">Assistente IA HBM</h1>
+          <h1 className="text-2xl font-bold text-primary">Assistente IA AMC</h1>
           <p className="text-xs text-muted-foreground">
             A sua consultora virtual 24/7
           </p>

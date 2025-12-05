@@ -6,95 +6,103 @@
 
 @layer base {
   :root {
-    /* HBM Design System Colors */
-    /* Primary: #0A1128 (Blue Dark) -> HSL 226 60% 10% */
-    --primary: 226 60% 10%;
-    --primary-foreground: 0 0% 100%;
+    /* Netflix-Style Theme with Gold Accent */
+    /*
+      Accessibility Note:
+      - primary/secondary foreground (10% lightness) used only on gold backgrounds (52-50% lightness)
+      - All dark backgrounds (#141414, #1A1A1A) use light foreground (95% lightness) for WCAG AAA compliance
+      - muted-foreground increased to 65% for better readability on dark backgrounds
+    */
 
-    /* Secondary: #FFD700 (Gold) -> HSL 51 100% 50% */
+    /* Gold Primary: #D4AF37 (Rich Gold) -> HSL 43 64% 52% */
+    --primary: 43 64% 52%;
+    --primary-foreground: 0 0% 10%; /* Dark text - only for gold backgrounds */
+
+    /* Gold Accent: #FFD700 (Vibrant Gold) -> HSL 51 100% 50% */
     --secondary: 51 100% 50%;
-    --secondary-foreground: 226 60% 10%;
+    --secondary-foreground: 0 0% 10%; /* Dark text - only for gold backgrounds */
 
-    /* Backgrounds */
-    --background: 0 0% 100%;
-    --foreground: 210 11% 23%; /* #343A40 */
+    /* Netflix Dark Backgrounds */
+    --background: 0 0% 8%; /* #141414 */
+    --foreground: 0 0% 95%; /* #F2F2F2 - Light text for dark backgrounds */
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 11% 23%;
+    --card: 0 0% 10%; /* #1A1A1A */
+    --card-foreground: 0 0% 95%; /* Light text for dark backgrounds */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 11% 23%;
+    --popover: 0 0% 6%; /* #0F0F0F */
+    --popover-foreground: 0 0% 95%; /* Light text for dark backgrounds */
 
-    --muted: 210 40% 96%; /* #F8F9FA */
-    --muted-foreground: 215 16% 47%; /* #6C757D */
+    --muted: 0 0% 15%; /* #262626 */
+    --muted-foreground: 0 0% 65%; /* Optimized for readability */
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 226 60% 10%;
+    --accent: 43 64% 52%; /* Gold */
+    --accent-foreground: 0 0% 10%; /* Dark text - only for gold backgrounds */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 14% 95%; /* #E9ECEF */
-    --input: 210 14% 95%;
-    --ring: 226 60% 10%;
+    --border: 0 0% 20%; /* #333333 */
+    --input: 0 0% 15%;
+    --ring: 43 64% 52%;
 
-    --radius: 0.5rem;
+    --radius: 0.375rem;
 
-    /* Sidebar */
-    --sidebar-background: 210 40% 98%; /* #F8F9FA */
-    --sidebar-foreground: 210 11% 23%;
-    --sidebar-primary: 226 60% 10%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 14% 95%;
-    --sidebar-accent-foreground: 226 60% 10%;
-    --sidebar-border: 210 14% 95%;
-    --sidebar-ring: 226 60% 10%;
+    /* Sidebar - Dark with Gold accents */
+    --sidebar-background: 0 0% 4%; /* #0A0A0A */
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 43 64% 52%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 43 64% 52%;
 
     /* Charts */
-    --chart-1: 226 60% 10%; /* Primary Blue */
-    --chart-2: 51 100% 50%; /* Gold */
+    --chart-1: 43 64% 52%; /* Gold */
+    --chart-2: 51 100% 50%; /* Vibrant Gold */
     --chart-3: 142 71% 45%; /* Green */
     --chart-4: 262 83% 58%; /* Purple */
     --chart-5: 12 76% 61%; /* Orange */
   }
 
   .dark {
-    --background: 226 60% 5%;
-    --foreground: 210 40% 98%;
+    /* Dark mode is the default Netflix style */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 226 60% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 226 60% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 226 60% 10%;
+    --primary: 43 64% 52%;
+    --primary-foreground: 0 0% 10%;
 
     --secondary: 51 100% 50%;
-    --secondary-foreground: 226 60% 10%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 226 40% 15%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 226 40% 15%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 43 64% 52%;
+    --accent-foreground: 0 0% 10%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 226 40% 15%;
-    --input: 226 40% 15%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 43 64% 52%;
 
-    --sidebar-background: 226 60% 8%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 51 100% 50%;
-    --sidebar-primary-foreground: 226 60% 10%;
-    --sidebar-accent: 226 40% 15%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 226 40% 15%;
-    --sidebar-ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 43 64% 52%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 43 64% 52%;
   }
 }
 
@@ -108,14 +116,64 @@
 }
 
 @layer utilities {
+  /* Gold utilities */
   .text-gold {
-    color: hsl(var(--secondary));
+    color: hsl(var(--primary));
   }
   .bg-gold {
-    background-color: hsl(var(--secondary));
+    background-color: hsl(var(--primary));
   }
   .border-gold {
-    border-color: hsl(var(--secondary));
+    border-color: hsl(var(--primary));
+  }
+
+  /* High contrast text utilities for better accessibility */
+  .text-high-contrast {
+    color: hsl(0 0% 98%); /* Very light text for dark backgrounds */
+  }
+  .text-medium-contrast {
+    color: hsl(0 0% 75%); /* Medium light text for subtle emphasis */
+  }
+
+  /* Ensure readable text on all backgrounds */
+  .text-on-dark {
+    color: hsl(0 0% 95%); /* Use this for text on dark backgrounds */
+  }
+  .text-on-gold {
+    color: hsl(0 0% 10%) !important; /* Use this for text on gold/yellow backgrounds */
+  }
+  
+  /* Gold gradient background with proper text contrast */
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%) !important;
+    color: hsl(0 0% 5%) !important; /* Very dark text for maximum contrast on gold */
+  }
+  .bg-gradient-gold * {
+    color: hsl(0 0% 5%) !important;
+  }
+
+  /* Netflix-style gradients */
+  .gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+  }
+  .gradient-dark {
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  }
+  .gradient-overlay {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      transparent 100%
+    );
+  }
+
+  /* Netflix-style hover effects */
+  .netflix-card {
+    @apply transition-all duration-300 ease-out;
+  }
+  .netflix-card:hover {
+    @apply scale-105 shadow-2xl brightness-110;
   }
 
   /* Animations */
@@ -129,7 +187,7 @@
   }
   @keyframes slide-up {
     from {
-      transform: translateY(10px);
+      transform: translateY(20px);
       opacity: 0;
     }
     to {
@@ -137,11 +195,74 @@
       opacity: 1;
     }
   }
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes scale-in {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+    }
+  }
 
   .animate-fade-in {
-    animation: fade-in 0.5s ease-out forwards;
+    animation: fade-in 0.6s ease-out forwards;
   }
   .animate-slide-up {
-    animation: slide-up 0.5s ease-out forwards;
+    animation: slide-up 0.6s ease-out forwards;
+  }
+  .animate-slide-in-left {
+    animation: slide-in-left 0.6s ease-out forwards;
+  }
+  .animate-scale-in {
+    animation: scale-in 0.4s ease-out forwards;
+  }
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 175, 55, 0.3),
+      transparent
+    );
+    background-size: 1000px 100%;
+  }
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  /* Netflix-style text shadow */
+  .text-shadow-gold {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  }
+  .text-shadow-dark {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
   }
 }

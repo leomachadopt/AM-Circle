@@ -16,7 +16,6 @@ import {
   ChartLegendContent,
 } from '@/components/ui/chart'
 import { Bar, BarChart, CartesianGrid, XAxis, Line, LineChart } from 'recharts'
-import { TrendingUp } from 'lucide-react'
 
 const kpiData = [
   { month: 'Jan', revenue: 45000, patients: 120 },
@@ -106,26 +105,6 @@ export default function KPIs() {
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-muted/30">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-green-600" /> Análise da IA
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm">
-              <p>
-                A sua faturação cresceu{' '}
-                <span className="font-bold text-green-600">22%</span> em junho
-                comparada com maio. Bom trabalho!
-              </p>
-              <p>
-                A taxa de conversão de novos pacientes está estável. Sugiro
-                rever o guião de primeira consulta para tentar aumentar esse
-                número no próximo mês.
-              </p>
-            </CardContent>
-          </Card>
-
           <Card>
             <CardHeader>
               <CardTitle>Registar Novos Dados</CardTitle>

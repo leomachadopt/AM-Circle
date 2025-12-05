@@ -9,13 +9,60 @@ import { Video, Calendar as CalendarIcon, Send } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
+import { useAuth } from '@/contexts/AuthContext'
+import { Label } from '@/components/ui/label'
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
 
 export default function Mentorships() {
   const [date, setDate] = useState<Date | undefined>(new Date())
+  const { user, token } = useAuth()
+  const [subject, setSubject] = useState('')
+  const [question, setQuestion] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSendQuestion = (e: React.FormEvent) => {
+  const handleSendQuestion = async (e: React.FormEvent) => {
     e.preventDefault()
-    toast.success('Pergunta enviada com sucesso!')
+    
+    if (!subject.trim() || !question.trim()) {
+      toast.error('Por favor, preencha todos os campos')
+      return
+    }
+
+    if (!user?.id) {
+      toast.error('Por favor, faça login para enviar uma pergunta')
+      return
+    }
+
+    try {
+      setIsSubmitting(true)
+      const response = await fetch(`${API_URL}/questions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          userId: user.id,
+          subject: subject.trim(),
+          question: question.trim(),
+        }),
+      })
+
+      if (response.ok) {
+        toast.success('Pergunta enviada com sucesso!')
+        setSubject('')
+        setQuestion('')
+      } else {
+        const error = await response.json().catch(() => ({}))
+        toast.error(error.error || 'Erro ao enviar pergunta')
+      }
+    } catch (error) {
+      console.error('Erro ao enviar pergunta:', error)
+      toast.error('Erro ao conectar com o servidor')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -108,22 +155,44 @@ export default function Mentorships() {
             </CardContent>
           </Card>
 
-          <Card className="bg-primary text-primary-foreground">
+          <Card className="bg-card border border-border/40 shadow-netflix">
             <CardHeader>
-              <CardTitle className="text-white">Envie a sua Pergunta</CardTitle>
+              <CardTitle>Envie a sua Pergunta</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSendQuestion} className="space-y-4">
-                <Input
-                  placeholder="Assunto"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
-                />
-                <Textarea
-                  placeholder="A sua dúvida para a próxima mentoria..."
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/60 min-h-[100px]"
-                />
-                <Button type="submit" variant="secondary" className="w-full">
-                  <Send className="mr-2 h-4 w-4" /> Enviar
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Assunto</Label>
+                  <Input
+                    id="subject"
+                    placeholder="Assunto"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    className="bg-background"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="question">A sua dúvida para a próxima mentoria...</Label>
+                  <Textarea
+                    id="question"
+                    placeholder="A sua dúvida para a próxima mentoria..."
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                    className="bg-background min-h-[100px]"
+                  />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-gold hover:bg-primary text-background font-semibold"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    'Enviando...'
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-4 w-4" /> Enviar
+                    </>
+                  )}
                 </Button>
               </form>
             </CardContent>

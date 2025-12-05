@@ -1,9 +1,10 @@
-# Projeto Criado com o Skip
+# AirLigner Mastery
 
-Este projeto foi criado de ponta a ponta com o [Skip](https://goskip.dev).
+Plataforma educacional para medicina dentária - Academia AMC.
 
 ## 🚀 Stack Tecnológica
 
+### Frontend
 - **React 19** - Biblioteca JavaScript para construção de interfaces
 - **Vite** - Build tool extremamente rápida
 - **TypeScript** - Superset tipado do JavaScript
@@ -13,6 +14,13 @@ Este projeto foi criado de ponta a ponta com o [Skip](https://goskip.dev).
 - **React Hook Form** - Gerenciamento de formulários performático
 - **Zod** - Validação de schemas TypeScript-first
 - **Recharts** - Biblioteca de gráficos para React
+
+### Backend
+- **Node.js** - Runtime JavaScript
+- **Express** - Framework web
+- **Drizzle ORM** - ORM moderno e type-safe
+- **PostgreSQL** - Banco de dados (Neon)
+- **TypeScript** - Superset tipado do JavaScript
 
 ## 📋 Pré-requisitos
 
@@ -76,12 +84,29 @@ npm run format
 
 ```
 .
-├── src/              # Código fonte da aplicação
+├── src/              # Código fonte do frontend
+├── server/           # Código fonte do backend
+│   ├── src/
+│   │   ├── db/      # Configuração e schema do banco
+│   │   └── routes/  # Rotas da API
+│   └── package.json
 ├── public/           # Arquivos estáticos
 ├── dist/             # Build de produção (gerado)
 ├── node_modules/     # Dependências (gerado)
-└── package.json      # Configurações e dependências do projeto
+└── package.json      # Configurações e dependências do frontend
 ```
+
+## 🗄️ Banco de Dados
+
+O projeto está integrado com o banco de dados Neon PostgreSQL. Para configurar o backend:
+
+1. Acesse a pasta `server/`
+2. Siga as instruções no arquivo `server/SETUP.md`
+3. Configure o arquivo `.env` com a string de conexão do Neon
+4. Execute as migrações: `npm run db:migrate`
+5. (Opcional) Popule com dados iniciais: `npm run db:seed`
+
+Para mais detalhes, consulte: [server/README.md](server/README.md)
 
 ## 🎨 Componentes UI
 

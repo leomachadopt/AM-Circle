@@ -29,6 +29,7 @@ export default {
       fontFamily: {
         sans: ['Inter var', 'SF Pro Display', 'system-ui', 'sans-serif'],
         display: ['SF Pro Display', 'Inter var', 'system-ui', 'sans-serif'],
+        netflix: ['Netflix Sans', 'Helvetica Neue', 'Segoe UI', 'Arial', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -95,9 +96,19 @@ export default {
         subtle:
           '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03)',
         elevation: '0 4px 20px rgba(0, 0, 0, 0.05)',
+        netflix: '0 10px 30px rgba(0, 0, 0, 0.7)',
+        gold: '0 10px 40px rgba(212, 175, 55, 0.3)',
       },
       transitionTimingFunction: {
         apple: 'cubic-bezier(0.42, 0, 0.58, 1)',
+        netflix: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      },
+      backdropBlur: {
+        xs: '2px',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },
