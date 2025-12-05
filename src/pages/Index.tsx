@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { format } from 'date-fns'
 import { pt } from 'date-fns/locale'
+import { useAuth } from '@/contexts/AuthContext'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
 
@@ -36,6 +37,7 @@ type Event = {
 }
 
 export default function Index() {
+  const { user } = useAuth()
   const [events, setEvents] = useState<Event[]>([])
   const [isLoadingEvents, setIsLoadingEvents] = useState(true)
 
@@ -92,7 +94,7 @@ export default function Index() {
         <div className="relative z-10">
           <div className="space-y-2">
             <h1 className="text-4xl md:text-5xl font-bold text-primary text-shadow-gold animate-slide-in-left">
-              Olá, {mockUser.name}!
+              Olá, {user?.name || mockUser.name}!
             </h1>
             <p className="text-lg text-foreground/90 animate-slide-up">
               Bem-vindo de volta ao seu hub de excelência dentária.
@@ -111,9 +113,9 @@ export default function Index() {
             <CheckCircle2 className="h-5 w-5 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-primary">{mockUser.progress}%</div>
+            <div className="text-3xl font-bold text-primary">{user?.progress || mockUser.progress}%</div>
             <Progress
-              value={mockUser.progress}
+              value={user?.progress || mockUser.progress}
               className="h-2 mt-3 bg-muted"
               indicatorClassName="bg-gradient-gold"
             />
