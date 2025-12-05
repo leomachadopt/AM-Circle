@@ -367,10 +367,10 @@ export default function AdminAcademy() {
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-primary">
-          Painel Administrativo - Academia AMC
+          Painel Administrativo - Academia Airlign Mastery Circle
         </h1>
         <p className="text-muted-foreground">
-          Gerencie as aulas da Academia AMC. Use os botões <strong>Tarefas</strong> e <strong>Materiais</strong> na tabela para adicionar conteúdo específico de cada aula.
+          Gerencie as aulas da Academia Airlign Mastery Circle. Use os botões <strong>Tarefas</strong> e <strong>Materiais</strong> na tabela para adicionar conteúdo específico de cada aula.
         </p>
       </div>
 

@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, Navigate } from 'react-router-dom'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/AppSidebar'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -19,7 +19,7 @@ import { useAuth } from '@/contexts/AuthContext'
 export default function Layout() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { user, logout } = useAuth()
+  const { user, logout, isAuthenticated, isLoading } = useAuth()
   const isLoginPage = location.pathname === '/login'
 
   const handleLogout = () => {
@@ -29,6 +29,19 @@ export default function Layout() {
 
   if (isLoginPage) {
     return <Outlet />
+  }
+
+  // Verificar autenticação antes de renderizar o layout
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />
   }
 
   return (
@@ -109,7 +122,7 @@ export default function Layout() {
           </main>
           <footer className="border-t border-border/30 bg-black/95 p-6 text-center text-xs text-muted-foreground backdrop-blur-sm">
             <div className="flex flex-col gap-2">
-              <p className="text-primary font-semibold text-sm">AMC Dental Mastery Hub</p>
+              <p className="text-primary font-semibold text-sm">Airlign Mastery Circle Hub</p>
               <p>© {new Date().getFullYear()} Todos os direitos reservados.</p>
             </div>
           </footer>

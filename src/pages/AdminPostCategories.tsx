@@ -180,7 +180,7 @@ export default function AdminPostCategories() {
           Painel Administrativo - Categorias de Posts
         </h1>
         <p className="text-muted-foreground">
-          Gerencie as categorias de posts da Comunidade AMC
+          Gerencie as categorias de posts da Comunidade Airlign Mastery Circle
         </p>
       </div>
 

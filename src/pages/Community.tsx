@@ -829,7 +829,7 @@ export default function Community() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200')] bg-cover bg-center opacity-10" />
         <div className="relative z-10 p-8 md:p-12">
           <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-shadow-gold animate-slide-in-left">
-            Comunidade AMC
+            Comunidade Airlign Mastery Circle
           </h1>
           <p className="text-lg text-foreground/90 max-w-2xl animate-slide-up">
             Conecte-se com dentistas de alta performance e compartilhe experiências.

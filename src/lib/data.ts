@@ -17,7 +17,7 @@ import {
 
 export const navItems = [
   { title: 'Dashboard', url: '/', icon: LayoutDashboard },
-  { title: 'Academia AMC', url: '/academy', icon: GraduationCap },
+  { title: 'Academia Airlign Mastery Circle', url: '/academy', icon: GraduationCap },
   { title: 'Mentorias e Eventos', url: '/mentorships', icon: Calendar },
   { title: 'Ferramentas', url: '/tools', icon: Wrench },
   { title: 'Assistente IA', url: '/ai-assistant', icon: Bot },

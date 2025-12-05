@@ -15,16 +15,25 @@ import { useAuth } from '@/contexts/AuthContext'
 
 export default function Login() {
   const navigate = useNavigate()
-  const { login, isAuthenticated } = useAuth()
+  const { login, isAuthenticated, isLoading: authLoading } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (!authLoading && isAuthenticated) {
       navigate('/')
     }
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated, authLoading, navigate])
+
+  // Mostrar loading enquanto verifica autenticação
+  if (authLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,13 +56,21 @@ export default function Login() {
 
       <Card className="w-full max-w-md shadow-gold border border-primary/30 bg-card/95 backdrop-blur-lg animate-scale-in relative z-10">
         <CardHeader className="space-y-1 text-center">
-          <div className="flex justify-center mb-6">
-            <div className="h-16 w-16 rounded-xl bg-gradient-gold flex items-center justify-center text-primary-foreground font-bold text-2xl shadow-gold animate-glow">
-              A
-            </div>
+          <div className="flex justify-center mb-6" style={{ backgroundColor: 'transparent' }}>
+            <img 
+              src="/nova-logo.png" 
+              alt="Airlign Mastery Circle Hub Logo" 
+              className="h-16 w-auto object-contain"
+              style={{ 
+                backgroundColor: 'transparent !important',
+                mixBlendMode: 'normal',
+                imageRendering: 'auto',
+                display: 'block'
+              }}
+            />
           </div>
           <CardTitle className="text-3xl font-bold text-primary text-shadow-gold">
-            AMC Dental Hub
+            Airlign Mastery Circle Hub
           </CardTitle>
           <CardDescription className="text-foreground/70">
             Introduza as suas credenciais para aceder à plataforma

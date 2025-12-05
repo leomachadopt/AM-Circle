@@ -42,11 +42,21 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarHeader className="h-16 flex items-center justify-center border-b border-primary/30 bg-gradient-to-b from-black to-sidebar-background">
         <div className="flex items-center gap-3 px-2 w-full overflow-hidden">
-          <div className="h-10 w-10 rounded-lg bg-gradient-gold flex-shrink-0 flex items-center justify-center text-primary-foreground font-bold text-xl shadow-gold">
-            A
+          <div className="h-10 flex items-center justify-center" style={{ backgroundColor: 'transparent' }}>
+            <img 
+              src="/nova-logo.png" 
+              alt="Airlign Mastery Circle Hub Logo" 
+              className="h-full w-auto max-w-[40px] object-contain flex-shrink-0 group-data-[collapsible=icon]:mx-auto"
+              style={{ 
+                backgroundColor: 'transparent !important',
+                mixBlendMode: 'normal',
+                imageRendering: 'auto',
+                display: 'block'
+              }}
+            />
           </div>
           <span className="font-bold text-primary text-lg truncate group-data-[collapsible=icon]:hidden text-shadow-gold">
-            AMC Hub
+            Airlign Mastery Circle Hub
           </span>
         </div>
       </SidebarHeader>

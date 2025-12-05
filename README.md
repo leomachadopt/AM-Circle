@@ -1,6 +1,6 @@
 # AirLigner Mastery
 
-Plataforma educacional para medicina dentária - Academia AMC.
+Plataforma educacional para medicina dentária - Academia Airlign Mastery Circle.
 
 ## 🚀 Stack Tecnológica
 
