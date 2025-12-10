@@ -25,13 +25,19 @@ const app = express()
 const PORT = process.env.PORT || 3001
 
 // Middlewares
+const isProduction = process.env.NODE_ENV === 'production'
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',').map((origin) => origin.trim())
-  : ['http://localhost:5173', 'https://am-circle.vercel.app', 'https://app.airlignmastery.pt']
+  : [
+      'http://localhost:5173',
+      'http://localhost:8080',
+      'http://localhost:8081',
+      'https://app.airlignmastery.pt',
+    ]
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: isProduction ? allowedOrigins : true, // em dev, reflete qualquer origin
     credentials: true,
   }),
 )

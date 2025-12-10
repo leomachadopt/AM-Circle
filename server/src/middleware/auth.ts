@@ -4,7 +4,11 @@ import { db } from '../db/index.js'
 import { users } from '../db/schema.js'
 import { eq } from 'drizzle-orm'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production'
+const JWT_SECRET = process.env.JWT_SECRET
+
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET não definido. Configure a variável de ambiente.')
+}
 
 export interface AuthRequest extends Request {
   user?: {

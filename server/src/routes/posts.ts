@@ -21,7 +21,12 @@ router.get('/', async (req, res) => {
       const token = req.headers.authorization?.replace('Bearer ', '')
       if (token) {
         const jwt = await import('jsonwebtoken')
-        const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production'
+        const JWT_SECRET = process.env.JWT_SECRET
+
+        if (!JWT_SECRET) {
+          throw new Error('JWT_SECRET não definido. Configure a variável de ambiente.')
+        }
+
         const decoded = jwt.verify(token, JWT_SECRET) as { id: number; email: string; role: string }
         userId = decoded.id
       }
