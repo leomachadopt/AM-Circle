@@ -10,3 +10,4 @@ CREATE TABLE IF NOT EXISTS "post_categories" (
 	CONSTRAINT "post_categories_slug_unique" UNIQUE("slug")
 );
 
+

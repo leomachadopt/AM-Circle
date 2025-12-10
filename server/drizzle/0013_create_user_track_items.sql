@@ -14,3 +14,4 @@ CREATE TABLE IF NOT EXISTS "user_track_items" (
 -- CreateIndex
 CREATE UNIQUE INDEX IF NOT EXISTS "user_track_items_user_id_track_item_id_unique" ON "user_track_items"("user_id", "track_item_id");
 
+

@@ -25,7 +25,16 @@ const app = express()
 const PORT = process.env.PORT || 3001
 
 // Middlewares
-app.use(cors())
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',').map((origin) => origin.trim())
+  : ['http://localhost:5173', 'https://am-circle.vercel.app', 'https://app.airlignmastery.pt']
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+)
 app.use(express.json())
 
 // Servir arquivos estáticos (uploads)

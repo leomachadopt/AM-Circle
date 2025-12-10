@@ -11,3 +11,4 @@ CREATE TABLE IF NOT EXISTS "post_likes" (
 -- CreateIndex
 CREATE UNIQUE INDEX IF NOT EXISTS "post_likes_post_id_user_id_unique" ON "post_likes"("post_id", "user_id");
 
+

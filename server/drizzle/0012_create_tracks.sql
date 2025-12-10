@@ -20,3 +20,4 @@ CREATE TABLE IF NOT EXISTS "track_items" (
     CONSTRAINT "track_items_track_id_tracks_id_fk" FOREIGN KEY ("track_id") REFERENCES "public"."tracks"("id") ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
+
